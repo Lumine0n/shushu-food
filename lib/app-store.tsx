@@ -77,7 +77,10 @@ export function AppStoreProvider({ children }: { children: React.ReactNode }) {
         router.replace("/login"); return;
       }
       const [profileResult, profilesResult, placesResult, foodsResult, experiencesResult, favoritesResult, decisionsResult] = await Promise.all([
-        supabase.from("profiles").select("*").eq("id", auth.user.id).single(),
+        // A user's own profile must remain readable while it is awaiting activation.
+        // `.maybeSingle()` also lets us show a useful error if the auth/profile
+        // trigger was not created instead of exposing PostgREST's coercion error.
+        supabase.from("profiles").select("*").eq("id", auth.user.id).maybeSingle(),
         supabase.from("profiles").select("*").eq("status", "active"),
         supabase.from("places").select("*").eq("status", "open"),
         supabase.from("food_items").select("*, food_item_tags(tags(name)), food_item_images(url, sort_order)").eq("status", "available"),
@@ -87,6 +90,12 @@ export function AppStoreProvider({ children }: { children: React.ReactNode }) {
       ]);
       const firstError = [profileResult, profilesResult, placesResult, foodsResult, experiencesResult, favoritesResult, decisionsResult].find((result) => result.error)?.error;
       if (firstError) { setError(firstError.message); setLoading(false); return; }
+
+      if (!profileResult.data) {
+        setError("账号资料尚未创建，请联系管理员重新创建账号或执行用户资料初始化。");
+        setLoading(false);
+        return;
+      }
 
       const profiles: Profile[] = (profilesResult.data ?? []).map((row) => ({ id: row.id, nickname: row.nickname, avatarUrl: row.avatar_url ?? undefined, role: row.role, status: row.status }));
       const places: Place[] = (placesResult.data ?? []).map((row) => ({ id: row.id, name: row.name, category: row.category, address: row.address, latitude: Number(row.latitude), longitude: Number(row.longitude), status: row.status, createdBy: row.created_by ?? undefined }));
