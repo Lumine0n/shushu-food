@@ -79,4 +79,4 @@ app/api/miniapp/         小程序登录与推荐接口
 lib/recommendation.ts    网页和小程序共用的推荐规则
 ```
 
-当前小程序先支持推荐接口联调。真实微信登录需要在服务端配置 `WECHAT_MINIPROGRAM_APPID` 和 `WECHAT_MINIPROGRAM_SECRET`，并完成 `openid → profiles` 绑定及会话签发；密钥不会暴露给小程序端。
+当前小程序先支持推荐接口联调。真实微信登录需要在服务端配置 `WECHAT_MINIPROGRAM_APPID`、`WECHAT_MINIPROGRAM_SECRET` 和 `SUPABASE_SERVICE_ROLE_KEY`，并在执行 `supabase/migrations/202609040002_wechat_accounts.sql` 后，将受邀用户的 `openid` 预绑定到 `profiles`。未绑定微信会被拒绝进入固定小圈；密钥不会暴露给小程序端。正式会话签发仍需在确定小程序端会话存储方案后接入。

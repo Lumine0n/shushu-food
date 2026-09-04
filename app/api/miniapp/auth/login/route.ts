@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
+import { createClient } from "@supabase/supabase-js";
 
 const requestSchema = z.object({ code: z.string().min(1).max(512) });
 
@@ -24,7 +25,24 @@ export async function POST(request: Request) {
   const result = (await response.json()) as { openid?: string; session_key?: string; unionid?: string; errcode?: number; errmsg?: string };
   if (!result.openid) return NextResponse.json({ error: result.errmsg || "微信登录失败", code: result.errcode }, { status: 401 });
 
-  // TODO: 用 service-role 在服务端完成 openid → profiles 映射，并签发 HttpOnly 会话。
-  // 此处不返回 openid/session_key，避免把微信身份凭证暴露给小程序页面。
-  return NextResponse.json({ status: "wechat_verified", needsProfileBinding: true });
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!supabaseUrl || !serviceRoleKey) {
+    return NextResponse.json({ error: "服务端数据库尚未配置，暂时无法完成身份绑定。" }, { status: 503 });
+  }
+
+  const admin = createClient(supabaseUrl, serviceRoleKey, { auth: { persistSession: false, autoRefreshToken: false } });
+  const { data: account, error } = await admin
+    .from("wechat_accounts")
+    .select("profile_id")
+    .eq("app_id", appId)
+    .eq("open_id", result.openid)
+    .maybeSingle();
+  if (error) return NextResponse.json({ error: "身份绑定查询失败，请稍后重试。" }, { status: 500 });
+  if (!account?.profile_id) {
+    return NextResponse.json({ error: "这个微信还没有加入朋友小圈，请联系管理员绑定。", needsProfileBinding: true }, { status: 403 });
+  }
+
+  // 当前只完成安全的身份确认；正式会话签发将在确定小程序会话方案后接入。
+  return NextResponse.json({ status: "wechat_verified", profileId: account.profile_id });
 }
