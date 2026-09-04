@@ -1,0 +1,4 @@
+place_name,place_category,address,latitude_gcj02,longitude_gcj02,food_name,description,price_yuan,meal_type,service_modes,tags,image_url,source
+益新食堂,食堂,上海大学宝山校区南区,31.319800,121.390800,铁板鸡排饭,"鸡排现煎，酱汁偏甜，赶时间也能很快拿到。",16,正餐,堂食|带走,米饭|鸡肉|实惠,https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=1000&q=80,seed
+山明食堂,食堂,上海大学宝山校区北区,31.322200,121.393100,番茄牛腩面,"汤底酸甜，牛腩软烂，天气凉的时候很舒服。",19,正餐,堂食,面食|热汤|牛肉,https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=1000&q=80,seed
+甜屿糖水,甜品,聚丰园路88号,31.316900,121.387800,杨枝甘露,"芒果味足，西柚不会太苦，建议三分糖。",18,甜品,堂食|带走|外卖,芒果|冰凉|甜品,https://images.unsplash.com/photo-1551024506-0bccd828d307?auto=format&fit=crop&w=1000&q=80,seed

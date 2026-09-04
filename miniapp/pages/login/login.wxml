@@ -1,0 +1,9 @@
+<view class="page">
+  <view class="eyebrow">朋友小圈</view>
+  <view class="title">别纠结了，<br/>今天吃个准的。</view>
+  <view class="muted">微信登录后，和同学一起维护一张可信的校园饭桌。</view>
+  <view class="card">
+    <button class="button" bindtap="login">微信登录</button>
+    <view class="muted tip">仅用于识别你的圈内身份，不会公开微信昵称。</view>
+  </view>
+</view>

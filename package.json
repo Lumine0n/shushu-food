@@ -1,0 +1,49 @@
+{
+  "name": "shushu-food",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "import:foods": "tsx scripts/import-foods.ts"
+  },
+  "dependencies": {
+    "@amap/amap-jsapi-loader": "1.0.1",
+    "@sentry/nextjs": "10.10.0",
+    "@supabase/ssr": "0.7.0",
+    "@supabase/supabase-js": "2.57.4",
+    "clsx": "2.1.1",
+    "lucide-react": "0.542.0",
+    "next": "15.5.3",
+    "papaparse": "5.5.3",
+    "react": "19.1.1",
+    "react-dom": "19.1.1",
+    "tailwind-merge": "3.3.1",
+    "zod": "4.1.5"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.55.0",
+    "@testing-library/jest-dom": "6.8.0",
+    "@testing-library/react": "16.3.0",
+    "@testing-library/user-event": "14.6.1",
+    "@tailwindcss/postcss": "4.1.13",
+    "@types/node": "22.18.1",
+    "@types/papaparse": "5.3.16",
+    "@types/react": "19.1.12",
+    "@types/react-dom": "19.1.9",
+    "@vitejs/plugin-react": "5.0.4",
+    "eslint": "9.35.0",
+    "eslint-config-next": "15.5.3",
+    "jsdom": "26.1.0",
+    "tsx": "4.20.5",
+    "tailwindcss": "4.1.13",
+    "typescript": "5.9.2",
+    "vitest": "3.2.4"
+  }
+}

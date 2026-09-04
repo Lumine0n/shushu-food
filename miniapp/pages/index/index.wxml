@@ -1,0 +1,15 @@
+<view class="page">
+  <view class="eyebrow">鼠鼠吃饭</view>
+  <view class="title">今天吃点什么？</view>
+  <view class="muted">少刷一会儿，直接挑一个能出发的答案。</view>
+  <view class="card">
+    <view class="muted">当前位置：宝山校区中心</view>
+    <button class="button" bindtap="recommend">看看现在吃什么</button>
+  </view>
+  <view wx:if="{{loading}}" class="muted">正在找答案…</view>
+  <view wx:for="{{foods}}" wx:key="foodId" class="food">
+    <view class="food-name">{{item.foodName}}</view>
+    <view class="food-meta">{{item.placeName}} · {{Math.round(item.distanceMeters)}}m · ¥{{item.priceCents / 100}}</view>
+    <view class="muted">{{item.reasons[0]}}</view>
+  </view>
+</view>
