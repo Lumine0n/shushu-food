@@ -28,14 +28,25 @@ export function DecisionBuilder() {
   const [decision, setDecision] = useState<Decision>();
   const [group, setGroup] = useState(0);
   const [working, setWorking] = useState(false);
+  const [error, setError] = useState<string>();
   const visible = useMemo(() => decision?.candidates.slice(group * 3, group * 3 + 3) ?? [], [decision, group]);
 
   async function decide() {
     setWorking(true);
-    const input: DecisionInput = { latitude: location.latitude, longitude: location.longitude, budgetMaxCents: budget * 100, distanceMeters: distance, mealTypes: selectedMeals, serviceModes: selectedModes, wantedTags, excludedTags: [] };
-    const next = await createDecision(input);
-    setDecision(next); setGroup(0); setWorking(false);
-    setTimeout(() => document.getElementById("recommendations")?.scrollIntoView({ behavior: "smooth" }), 30);
+    setError(undefined);
+    try {
+      const input: DecisionInput = { latitude: location.latitude, longitude: location.longitude, budgetMaxCents: budget * 100, distanceMeters: distance, mealTypes: selectedMeals, serviceModes: selectedModes, wantedTags, excludedTags: [] };
+      const next = await Promise.race([
+        createDecision(input),
+        new Promise<Decision>((_, reject) => setTimeout(() => reject(new Error("推荐请求超时，请检查网络后重试。")), 15000)),
+      ]);
+      setDecision(next); setGroup(0);
+      setTimeout(() => document.getElementById("recommendations")?.scrollIntoView({ behavior: "smooth" }), 30);
+    } catch (cause) {
+      setError(cause instanceof Error ? cause.message : "推荐失败，请稍后重试。");
+    } finally {
+      setWorking(false);
+    }
   }
 
   function locate() {
@@ -57,6 +68,7 @@ export function DecisionBuilder() {
       <div className="mb-5"><p className="mb-2 text-sm font-extrabold">怎么吃</p><ToggleGroup items={serviceModes} value={selectedModes} onChange={setSelectedModes} /></div>
       <div className="mb-5"><p className="mb-2 text-sm font-extrabold">有点偏好</p><ToggleGroup items={popularTags} value={wantedTags} onChange={setWantedTags} /></div>
       <button className="mb-4 flex min-h-11 items-center gap-2 text-left text-sm font-bold text-[var(--green)]" onClick={locate}><LocateFixed size={18} />{locating ? "正在定位…" : locationLabel}</button>
+      {error && <p role="alert" className="mb-3 rounded-xl border border-red-200 bg-red-50 px-3 py-2 text-sm font-bold text-red-700">{error}</p>}
       <button className="primary-button w-full" disabled={working} onClick={decide}>{working ? "正在翻朋友们的饭单…" : "看看现在吃什么"}</button>
     </section>
 
