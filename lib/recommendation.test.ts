@@ -26,21 +26,22 @@ describe("recommendFoods", () => {
     expect(result[0].score).toBeGreaterThanOrEqual(result.at(-1)!.score);
   });
 
-  it("strictly excludes items over budget or without a known price", () => {
-    const result = recommendFoods({ decisionId: "d2", userId: "me", input: { ...baseInput, budgetMaxCents: 1000 }, foods: demoFoods, places: demoPlaces, experiences: demoExperiences });
-    expect(result.every((item) => item.priceCents != null && item.priceCents <= 1000)).toBe(true);
+  it("uses the place average price when a dish price is unknown", () => {
+    const result = recommendFoods({ decisionId: "d2", userId: "me", input: { ...baseInput, budgetMaxCents: 1500 }, foods: demoFoods, places: demoPlaces, experiences: demoExperiences });
+    expect(result.length).toBeGreaterThan(0);
+    expect(result.every((item) => item.priceKind === "average" && item.priceCents != null && item.priceCents <= 1500)).toBe(true);
   });
 
   it("excludes the current user's avoided item", () => {
-    const experiences = [...demoExperiences, { userId: "me", foodId: "f1", attitude: "avoid" as const, createdAt: new Date().toISOString(), authorName: "鼠鼠" }];
+    const experiences = [...demoExperiences, { userId: "me", foodId: "f9", attitude: "avoid" as const, createdAt: new Date().toISOString(), authorName: "鼠鼠" }];
     const result = recommendFoods({ decisionId: "d3", userId: "me", input: baseInput, foods: demoFoods, places: demoPlaces, experiences });
-    expect(result.some((item) => item.foodId === "f1")).toBe(false);
+    expect(result.some((item) => item.foodId === "f9")).toBe(false);
   });
 
   it("relaxes wanted tags only when fewer than three strict matches exist", () => {
-    const result = recommendFoods({ decisionId: "d4", userId: "me", input: { ...baseInput, wantedTags: ["芒果"] }, foods: demoFoods, places: demoPlaces, experiences: demoExperiences });
+    const result = recommendFoods({ decisionId: "d4", userId: "me", input: { ...baseInput, budgetMaxCents: 6000, wantedTags: ["披萨"] }, foods: demoFoods, places: demoPlaces, experiences: demoExperiences });
     expect(result.length).toBeGreaterThan(1);
-    expect(result.some((item) => item.foodId === "f5")).toBe(true);
+    expect(result.some((item) => item.foodId === "f10")).toBe(true);
   });
 
   it("uses deterministic jitter for the same decision", () => {

@@ -17,6 +17,9 @@ export type Place = {
   address: string;
   latitude: number;
   longitude: number;
+  averagePriceCents?: number;
+  notes?: string;
+  coordinateStatus?: "verified" | "estimated" | "pending";
   status: "open" | "closed";
   createdBy?: string;
 };
@@ -63,6 +66,7 @@ export type RecommendationCard = {
   placeAddress: string;
   imageUrl: string | undefined;
   priceCents: number | undefined;
+  priceKind: "item" | "average" | "unknown";
   distanceMeters: number;
   friendRecommendationCount: number;
   reasons: string[];

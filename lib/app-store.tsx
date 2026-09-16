@@ -41,7 +41,7 @@ type AppStore = {
 };
 
 const StoreContext = createContext<AppStore | null>(null);
-const STORAGE_KEY = "shushu-food-demo-v1";
+const STORAGE_KEY = "shushu-food-demo-v2";
 
 type StoredState = Pick<AppStore, "places" | "foods" | "experiences" | "favorites" | "decisions">;
 
@@ -98,7 +98,7 @@ export function AppStoreProvider({ children }: { children: React.ReactNode }) {
       }
 
       const profiles: Profile[] = (profilesResult.data ?? []).map((row) => ({ id: row.id, nickname: row.nickname, avatarUrl: row.avatar_url ?? undefined, role: row.role, status: row.status }));
-      const places: Place[] = (placesResult.data ?? []).map((row) => ({ id: row.id, name: row.name, category: row.category, address: row.address, latitude: Number(row.latitude), longitude: Number(row.longitude), status: row.status, createdBy: row.created_by ?? undefined }));
+      const places: Place[] = (placesResult.data ?? []).map((row) => ({ id: row.id, name: row.name, category: row.category, address: row.address, latitude: Number(row.latitude), longitude: Number(row.longitude), averagePriceCents: row.average_price_cents ?? undefined, notes: row.notes ?? undefined, coordinateStatus: row.coordinate_status ?? undefined, status: row.status, createdBy: row.created_by ?? undefined }));
       const foods: FoodItem[] = (foodsResult.data ?? []).map((row) => ({
         id: row.id, placeId: row.place_id, name: row.name, description: row.description ?? "", priceCents: row.price_cents ?? undefined, mealType: row.meal_type,
         serviceModes: row.service_modes ?? [], tags: (row.food_item_tags ?? []).map((item: { tags: { name: string } | null }) => item.tags?.name).filter(Boolean) as string[],
@@ -112,7 +112,8 @@ export function AppStoreProvider({ children }: { children: React.ReactNode }) {
         id: row.id, input: row.input, selectedFoodId: row.selected_food_id ?? undefined, createdAt: row.created_at, feedbackPending: row.feedback_pending,
         candidates: (row.decision_candidates ?? []).sort((a: { rank: number }, b: { rank: number }) => a.rank - b.rank).map((candidate: { food_item_id: string; score: number; reasons: string[] }) => {
           const food = foodMap.get(candidate.food_item_id)!; const place = placeMap.get(food.placeId)!;
-          return { foodId: food.id, foodName: food.name, placeName: place.name, placeAddress: place.address, imageUrl: food.imageUrl, priceCents: food.priceCents, distanceMeters: 0, friendRecommendationCount: 0, reasons: candidate.reasons, score: candidate.score, tags: food.tags };
+          const priceCents = food.priceCents ?? place.averagePriceCents;
+          return { foodId: food.id, foodName: food.name, placeName: place.name, placeAddress: place.address, imageUrl: food.imageUrl, priceCents, priceKind: food.priceCents != null ? "item" : place.averagePriceCents != null ? "average" : "unknown", distanceMeters: 0, friendRecommendationCount: 0, reasons: candidate.reasons, score: candidate.score, tags: food.tags };
         }),
       }));
       setCurrentUser(profiles.find((profile) => profile.id === auth.user!.id) ?? { id: auth.user.id, nickname: auth.user.email?.split("@")[0] ?? "鼠鼠", role: "member", status: "active" });

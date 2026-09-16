@@ -15,7 +15,7 @@ npm run dev
 ## 接入 Supabase
 
 1. 新建 Supabase 项目。
-2. 用 Supabase CLI 执行 `supabase/migrations/202609040001_initial.sql`。
+2. 按文件名顺序执行 `supabase/migrations/` 中的迁移。
 3. 在 Dashboard 创建 5～10 个邮箱密码账号。
 4. 新账号默认是 `inactive`，在 SQL Editor 激活：
 
@@ -29,21 +29,27 @@ where id = '<首位用户 UUID>';
 
 5. 将项目 URL、anon key 和仅服务端使用的 service-role key 写入 `.env.local`。
 
-## 导入种子食物
+## 导入美食目录
 
 先校验 CSV：
 
 ```bash
-npm run import:foods -- data/foods.sample.csv --dry-run
+npm run import:foods -- data/foods.csv --dry-run
 ```
 
 确认无误后写入 Supabase：
 
 ```bash
-npm run import:foods -- data/foods.sample.csv
+npm run import:foods -- data/foods.csv
 ```
 
-经纬度必须是高德 GCJ-02 坐标。脚本可重复执行，相同地点和食物会更新而不会重复创建。
+首次用真实目录替换旧演示数据时，显式使用：
+
+```bash
+npm run import:foods -- data/foods.csv --replace-catalog
+```
+
+`--replace-catalog` 会清空旧地点、菜品和关联决策，只应在确认需要完整替换时使用。普通导入可重复执行，相同地点和食物会更新而不会重复创建。经纬度必须使用高德 GCJ-02；未核准坐标保持 `coordinate_status=estimated`。
 
 ## 高德地图
 

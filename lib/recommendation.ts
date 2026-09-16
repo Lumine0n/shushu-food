@@ -32,8 +32,10 @@ export function recommendFoods(args: {
     const place = placeMap.get(food.placeId);
     if (!place || place.status !== "open" || food.status !== "available") return null;
     const distance = distanceMeters(args.input.latitude, args.input.longitude, place.latitude, place.longitude);
+    const effectivePrice = food.priceCents ?? place.averagePriceCents;
+    const priceKind = food.priceCents != null ? "item" : place.averagePriceCents != null ? "average" : "unknown";
     if (distance > args.input.distanceMeters) return null;
-    if (args.input.budgetMaxCents != null && (food.priceCents == null || food.priceCents > args.input.budgetMaxCents)) return null;
+    if (args.input.budgetMaxCents != null && (effectivePrice == null || effectivePrice > args.input.budgetMaxCents)) return null;
     if (args.input.mealTypes.length && !args.input.mealTypes.includes(food.mealType)) return null;
     if (args.input.serviceModes.length && !args.input.serviceModes.some((mode) => food.serviceModes.includes(mode))) return null;
     if (food.tags.some((tag) => args.input.excludedTags.includes(tag))) return null;
@@ -47,7 +49,7 @@ export function recommendFoods(args: {
     const tagScore = args.input.wantedTags.length ? Math.min(30, (tagMatches / args.input.wantedTags.length) * 30) : 15;
     const friendScore = Math.min(25, positive.length * 10);
     const distanceScore = Math.max(0, 20 * (1 - distance / args.input.distanceMeters));
-    const budgetScore = args.input.budgetMaxCents && food.priceCents != null ? Math.max(0, 15 * (1 - food.priceCents / args.input.budgetMaxCents)) : 7.5;
+    const budgetScore = args.input.budgetMaxCents && effectivePrice != null ? Math.max(0, 15 * (1 - effectivePrice / args.input.budgetMaxCents)) : 7.5;
     const ownScore = mine?.attitude === "again" ? 10 : 0;
     const finalScore = tagScore + friendScore + distanceScore + budgetScore + ownScore + stableJitter(`${args.decisionId}:${food.id}`);
     const reasons = [
@@ -56,7 +58,7 @@ export function recommendFoods(args: {
       tagMatches ? `符合 ${food.tags.filter((tag) => args.input.wantedTags.includes(tag)).join("、")}` : food.tags.slice(0, 2).join(" · "),
     ];
 
-    return { foodId: food.id, foodName: food.name, placeName: place.name, placeAddress: place.address, imageUrl: food.imageUrl, priceCents: food.priceCents, distanceMeters: distance, friendRecommendationCount: positive.length, reasons, score: Number(finalScore.toFixed(2)), tags: food.tags } satisfies RecommendationCard;
+    return { foodId: food.id, foodName: food.name, placeName: place.name, placeAddress: place.address, imageUrl: food.imageUrl, priceCents: effectivePrice, priceKind, distanceMeters: distance, friendRecommendationCount: positive.length, reasons, score: Number(finalScore.toFixed(2)), tags: food.tags } satisfies RecommendationCard;
   };
 
   let ranked = args.foods.map((food) => score(food, false)).filter((food): food is RecommendationCard => food !== null);

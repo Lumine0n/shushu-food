@@ -11,6 +11,9 @@ const rowSchema = z.object({
   address: z.string().trim().min(1),
   latitude_gcj02: z.coerce.number().min(-90).max(90),
   longitude_gcj02: z.coerce.number().min(-180).max(180),
+  coordinate_status: z.enum(["verified", "estimated", "pending"]).default("pending"),
+  average_price_yuan: z.union([z.literal(""), z.coerce.number().positive().max(1000)]),
+  place_notes: z.string().trim().max(500).default(""),
   food_name: z.string().trim().min(1),
   description: z.string().trim().max(240).default(""),
   price_yuan: z.union([z.literal(""), z.coerce.number().positive().max(1000)]),
@@ -24,7 +27,8 @@ const rowSchema = z.object({
 async function main() {
   const file = process.argv.find((arg) => arg.endsWith(".csv"));
   const dryRun = process.argv.includes("--dry-run");
-  if (!file) throw new Error("用法：npm run import:foods -- data/foods.csv [--dry-run]");
+  const replaceCatalog = process.argv.includes("--replace-catalog");
+  if (!file) throw new Error("用法：npm run import:foods -- data/foods.csv [--dry-run] [--replace-catalog]");
   const csv = await readFile(file, "utf8");
   const parsed = Papa.parse<Record<string, string>>(csv, { header: true, skipEmptyLines: true });
   const rows = parsed.data.map((row, index) => {
@@ -40,18 +44,35 @@ async function main() {
   if (!url || !serviceKey) throw new Error("缺少 NEXT_PUBLIC_SUPABASE_URL 或 SUPABASE_SERVICE_ROLE_KEY");
   const supabase = createClient(url, serviceKey, { auth: { persistSession: false } });
 
+  if (replaceCatalog) {
+    const resetResult = await supabase.rpc("admin_reset_food_catalog");
+    if (resetResult.error) throw new Error(`清空旧目录失败：${resetResult.error.message}`);
+    console.log("旧地点、菜品和关联决策已清空，开始导入新目录。");
+  }
+
   for (const [index, row] of rows.entries()) {
     const placeNormalized = normalizeName(row.place_name);
-    let { data: place } = await supabase.from("places").select("id").eq("normalized_name", placeNormalized).eq("address", row.address).maybeSingle();
-    if (!place) {
-      const result = await supabase.from("places").insert({ name: row.place_name, normalized_name: placeNormalized, category: row.place_category, address: row.address, latitude: row.latitude_gcj02, longitude: row.longitude_gcj02 }).select("id").single();
-      if (result.error) throw new Error(`第 ${index + 2} 行地点写入失败：${result.error.message}`);
-      place = result.data;
-    }
+    const placeResult = await supabase.from("places").upsert({
+      name: row.place_name,
+      normalized_name: placeNormalized,
+      category: row.place_category,
+      address: row.address,
+      latitude: row.latitude_gcj02,
+      longitude: row.longitude_gcj02,
+      coordinate_status: row.coordinate_status,
+      average_price_cents: row.average_price_yuan === "" ? null : Math.round(Number(row.average_price_yuan) * 100),
+      notes: row.place_notes || null,
+      data_source: row.source,
+    }, { onConflict: "normalized_name,address" }).select("id").single();
+    if (placeResult.error) throw new Error(`第 ${index + 2} 行地点写入失败：${placeResult.error.message}`);
+    const place = placeResult.data;
     const foodNormalized = normalizeName(row.food_name);
-    const foodResult = await supabase.from("food_items").upsert({ place_id: place.id, name: row.food_name, normalized_name: foodNormalized, description: row.description, price_cents: row.price_yuan === "" ? null : Math.round(Number(row.price_yuan) * 100), meal_type: row.meal_type, service_modes: row.service_modes.split("|").map((item) => item.trim()).filter(Boolean) }, { onConflict: "place_id,normalized_name" }).select("id").single();
+    const foodResult = await supabase.from("food_items").upsert({ place_id: place.id, name: row.food_name, normalized_name: foodNormalized, description: row.description, price_cents: row.price_yuan === "" ? null : Math.round(Number(row.price_yuan) * 100), meal_type: row.meal_type, service_modes: row.service_modes.split("|").map((item) => item.trim()).filter(Boolean), data_source: row.source }, { onConflict: "place_id,normalized_name" }).select("id").single();
     if (foodResult.error) throw new Error(`第 ${index + 2} 行食物写入失败：${foodResult.error.message}`);
     const foodId = foodResult.data.id;
+
+    const clearTagsResult = await supabase.from("food_item_tags").delete().eq("food_item_id", foodId);
+    if (clearTagsResult.error) throw new Error(`第 ${index + 2} 行旧标签清理失败：${clearTagsResult.error.message}`);
 
     for (const tagName of row.tags.split("|").map((item) => item.trim()).filter(Boolean)) {
       const tagResult = await supabase.from("tags").upsert({ name: tagName }, { onConflict: "name" }).select("id").single();

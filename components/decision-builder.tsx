@@ -9,7 +9,7 @@ import { FoodCard } from "@/components/food-card";
 
 const mealTypes: MealType[] = ["正餐", "小吃", "甜品", "饮品", "夜宵"];
 const serviceModes: ServiceMode[] = ["堂食", "带走", "外卖"];
-const popularTags = ["米饭", "面食", "鸡肉", "牛肉", "麻辣", "热汤", "甜品", "实惠"];
+const popularTags = ["米饭", "面食", "鸡肉", "牛肉", "麻辣", "火锅", "汉堡", "披萨", "聚会", "实惠"];
 
 function ToggleGroup<T extends string>({ items, value, onChange }: { items: T[]; value: T[]; onChange: (value: T[]) => void }) {
   return <div className="flex flex-wrap gap-2">{items.map((item) => <button type="button" className="pill" data-active={value.includes(item)} key={item} onClick={() => onChange(value.includes(item) ? value.filter((valueItem) => valueItem !== item) : [...value, item])}>{item}</button>)}</div>;
@@ -62,7 +62,7 @@ export function DecisionBuilder() {
   return <>
     <section className="soft-card p-4 sm:p-5">
       <div className="mb-5 flex items-start justify-between gap-4"><div><p className="section-label">当前条件</p><h2 className="serif mt-1 text-2xl font-bold">给我三个答案</h2></div><SlidersHorizontal size={23} color="#c94a32" /></div>
-      <label className="mb-5 block"><span className="mb-2 flex justify-between text-sm font-extrabold"><span>预算上限</span><span className="text-[var(--red)]">¥{budget}</span></span><input className="w-full accent-[var(--red)]" type="range" min="10" max="100" step="5" value={budget} onChange={(event) => setBudget(Number(event.target.value))} /></label>
+      <label className="mb-5 block"><span className="mb-2 flex justify-between text-sm font-extrabold"><span>预算上限</span><span className="text-[var(--red)]">¥{budget}</span></span><input className="w-full accent-[var(--red)]" type="range" min="10" max="150" step="5" value={budget} onChange={(event) => setBudget(Number(event.target.value))} /></label>
       <label className="mb-5 block"><span className="mb-2 flex justify-between text-sm font-extrabold"><span>最多走多远</span><span className="text-[var(--red)]">{distance < 1000 ? `${distance}m` : `${distance / 1000}km`}</span></span><input className="w-full accent-[var(--red)]" type="range" min="300" max="3000" step="300" value={distance} onChange={(event) => setDistance(Number(event.target.value))} /></label>
       <div className="mb-5"><p className="mb-2 text-sm font-extrabold">现在想吃</p><ToggleGroup items={mealTypes} value={selectedMeals} onChange={setSelectedMeals} /></div>
       <div className="mb-5"><p className="mb-2 text-sm font-extrabold">怎么吃</p><ToggleGroup items={serviceModes} value={selectedModes} onChange={setSelectedModes} /></div>
