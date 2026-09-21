@@ -1,6 +1,14 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
+function publicOrigin(request: NextRequest) {
+  const forwardedHost = request.headers.get("x-forwarded-host")?.split(",")[0]?.trim();
+  const forwardedProto = request.headers.get("x-forwarded-proto")?.split(",")[0]?.trim();
+  const host = forwardedHost || request.headers.get("host") || request.nextUrl.host;
+  const protocol = forwardedProto || request.nextUrl.protocol.replace(":", "") || "http";
+  return `${protocol}://${host}`;
+}
+
 export async function middleware(request: NextRequest) {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
@@ -19,10 +27,11 @@ export async function middleware(request: NextRequest) {
   const { data } = await supabase.auth.getUser();
   const isPublic = request.nextUrl.pathname.startsWith("/login") || request.nextUrl.pathname.startsWith("/share/");
   if (!data.user && !isPublic) {
-    const login = request.nextUrl.clone(); login.pathname = "/login"; login.searchParams.set("next", request.nextUrl.pathname);
+    const login = new URL("/login", publicOrigin(request));
+    login.searchParams.set("next", request.nextUrl.pathname);
     return NextResponse.redirect(login);
   }
-  if (data.user && request.nextUrl.pathname === "/login") return NextResponse.redirect(new URL("/", request.url));
+  if (data.user && request.nextUrl.pathname === "/login") return NextResponse.redirect(new URL("/", publicOrigin(request)));
   return response;
 }
 
