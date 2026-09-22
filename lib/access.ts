@@ -13,3 +13,8 @@ export function isPublicPagePath(pathname: string) {
 export function loginHref(nextPath: string) {
   return `/login?next=${encodeURIComponent(nextPath || "/")}`;
 }
+
+export function safeNextPath(value: string | null) {
+  if (!value?.startsWith("/") || value.startsWith("//")) return "/";
+  return value;
+}

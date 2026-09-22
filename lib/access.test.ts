@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { isPublicPagePath, loginHref } from "@/lib/access";
+import { isPublicPagePath, loginHref, safeNextPath } from "@/lib/access";
 
 describe("guest access", () => {
   it("opens only the browsing and draw pages", () => {
@@ -13,5 +13,13 @@ describe("guest access", () => {
 
   it("preserves the destination when asking for login", () => {
     expect(loginHref("/record")).toBe("/login?next=%2Frecord");
+  });
+
+  it("only accepts same-origin destinations after login", () => {
+    expect(safeNextPath("/record?draft=1")).toBe("/record?draft=1");
+    expect(safeNextPath("https://example.com")).toBe("/");
+    expect(safeNextPath("//example.com")).toBe("/");
+    expect(safeNextPath("javascript:alert(1)")).toBe("/");
+    expect(safeNextPath(null)).toBe("/");
   });
 });

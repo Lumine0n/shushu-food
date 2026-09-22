@@ -14,11 +14,11 @@
 | 名称 | 鼠鼠吃饭 |
 | 定位 | 上海大学宝山校区及周边熟人圈的吃饭决策工具 |
 | GitHub | <https://github.com/Lumine0n/shushu-food> |
-| 本地目录 | `/Users/lugia/Documents/美食软件` |
+| 本地目录 | 当前 Git 仓库根目录 |
 | 当前分支 | `codex/guest-food-draw` |
 | 最新已提交版本 | `78ce8a0`，`fix: preserve public origin behind nginx` |
 | 正式域名 | <https://shushufood.site> |
-| 正式服务器 | 腾讯云 Ubuntu，公网 IP `43.142.37.200` |
+| 正式服务器 | 腾讯云 Ubuntu，通过正式域名访问 |
 | Supabase 项目 | `https://szknxluzjuiffgjgmbdb.supabase.co` |
 | Web 进程 | PM2 进程 `shushu-food` |
 | Next.js 内网端口 | `127.0.0.1:3100` |
@@ -517,7 +517,7 @@ SUPABASE_SERVICE_ROLE_KEY
 ### 11.1 初始化
 
 ```bash
-cd "/Users/lugia/Documents/美食软件"
+cd "<项目目录>"
 npm install
 cp .env.example .env.local
 npm run dev -- --hostname 127.0.0.1 --port 3100

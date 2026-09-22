@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ArrowRight, UtensilsCrossed } from "lucide-react";
-import { DEMO_AUTH_STORAGE_KEY } from "@/lib/access";
+import { DEMO_AUTH_STORAGE_KEY, safeNextPath } from "@/lib/access";
 import { createClient, isSupabaseConfigured } from "@/lib/supabase/client";
 
 export default function LoginPage() {
@@ -17,7 +17,7 @@ export default function LoginPage() {
 
   async function submit(event: React.FormEvent) {
     event.preventDefault(); setError(undefined); setLoading(true);
-    const next = typeof window !== "undefined" ? new URLSearchParams(window.location.search).get("next") || "/" : "/";
+    const next = safeNextPath(typeof window !== "undefined" ? new URLSearchParams(window.location.search).get("next") : null);
     if (!configured) {
       window.localStorage.setItem(DEMO_AUTH_STORAGE_KEY, "1");
       router.push(next); router.refresh();
