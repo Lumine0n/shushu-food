@@ -1,5 +1,6 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
+import { isPublicPagePath } from "@/lib/access";
 
 function publicOrigin(request: NextRequest) {
   const forwardedHost = request.headers.get("x-forwarded-host")?.split(",")[0]?.trim();
@@ -25,13 +26,17 @@ export async function middleware(request: NextRequest) {
     },
   });
   const { data } = await supabase.auth.getUser();
-  const isPublic = request.nextUrl.pathname.startsWith("/login") || request.nextUrl.pathname.startsWith("/share/");
-  if (!data.user && !isPublic) {
+  const pathname = request.nextUrl.pathname;
+  const isApi = pathname.startsWith("/api/");
+  const isPublic = isPublicPagePath(pathname);
+  // API handlers return their own 401 responses; redirecting them would turn
+  // a JSON error into an HTML login page.
+  if (!data.user && !isPublic && !isApi) {
     const login = new URL("/login", publicOrigin(request));
-    login.searchParams.set("next", request.nextUrl.pathname);
+    login.searchParams.set("next", `${pathname}${request.nextUrl.search}`);
     return NextResponse.redirect(login);
   }
-  if (data.user && request.nextUrl.pathname === "/login") return NextResponse.redirect(new URL("/", publicOrigin(request)));
+  if (data.user && pathname === "/login") return NextResponse.redirect(new URL("/", publicOrigin(request)));
   return response;
 }
 

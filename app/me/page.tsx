@@ -5,12 +5,14 @@ import { Heart, LogOut, MousePointerClick, NotebookPen } from "lucide-react";
 import { AppFrame } from "@/components/app-frame";
 import { PageHeader } from "@/components/page-header";
 import { LoadingScreen } from "@/components/loading-screen";
+import { LoginRequired } from "@/components/login-required";
 import { useAppStore } from "@/lib/app-store";
 import { formatPrice } from "@/lib/utils";
 
 export default function MePage() {
-  const { loading, currentUser, foods, places, favorites, experiences, decisions, signOut, dataMode } = useAppStore();
+  const { loading, isAuthenticated, currentUser, foods, places, favorites, experiences, decisions, signOut, dataMode } = useAppStore();
   if (loading) return <LoadingScreen />;
+  if (!isAuthenticated) return <AppFrame><main className="page"><PageHeader eyebrow="My table" title="我的饭桌" /><LoginRequired title="登录后查看个人清单" description="你可以免登录抽食物；收藏、历史记录和反馈需要登录后保存。" /></main></AppFrame>;
   const favoriteFoods = foods.filter((food) => favorites.includes(food.id));
   const myExperiences = experiences.filter((item) => item.userId === currentUser.id);
   const completed = decisions.filter((item) => item.selectedFoodId).length;
