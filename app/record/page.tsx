@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { AppFrame } from "@/components/app-frame";
+import { LoginRequired } from "@/components/login-required";
+import { LoadingScreen } from "@/components/loading-screen";
 import { PageHeader } from "@/components/page-header";
 import { useAppStore } from "@/lib/app-store";
 import type { MealType, ServiceMode } from "@/lib/types";
@@ -12,10 +14,12 @@ const serviceModes: ServiceMode[] = ["堂食", "带走", "外卖"];
 
 export default function RecordPage() {
   const router = useRouter();
-  const { addFood, foods, places } = useAppStore();
+  const { addFood, foods, places, loading, isAuthenticated } = useAppStore();
   const [name, setName] = useState(""); const [placeName, setPlaceName] = useState(""); const [description, setDescription] = useState(""); const [price, setPrice] = useState("");
   const [mealType, setMealType] = useState<MealType>("正餐"); const [modes, setModes] = useState<ServiceMode[]>(["堂食"]); const [tags, setTags] = useState(""); const [saving, setSaving] = useState(false); const [error, setError] = useState<string>();
   const possible = name.trim() ? foods.filter((food) => food.name.includes(name.trim())).slice(0, 3) : [];
+  if (loading) return <LoadingScreen />;
+  if (!isAuthenticated) return <AppFrame><main className="page"><PageHeader eyebrow="Record" title="把这口好吃的留下" /><LoginRequired title="登录后修改美食清单" description="抽食物和浏览清单无需登录；添加食物、上传内容和反馈需要登录。" /></main></AppFrame>;
   async function submit(event: React.FormEvent) {
     event.preventDefault(); setError(undefined);
     const tagList = tags.split(/[，,]/).map((tag) => tag.trim()).filter(Boolean);

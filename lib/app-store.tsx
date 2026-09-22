@@ -2,6 +2,7 @@
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
+import { DEMO_AUTH_STORAGE_KEY, isPublicPagePath, loginHref } from "@/lib/access";
 import { CAMPUS_CENTER, demoExperiences, demoFoods, demoPlaces, demoProfiles } from "@/lib/demo-data";
 import { recommendFoods } from "@/lib/recommendation";
 import { createClient, isSupabaseConfigured } from "@/lib/supabase/client";
@@ -24,6 +25,7 @@ type AppStore = {
   loading: boolean;
   error?: string;
   dataMode: "demo" | "supabase";
+  isAuthenticated: boolean;
   currentUser: Profile;
   profiles: Profile[];
   places: Place[];
@@ -37,16 +39,19 @@ type AppStore = {
   submitExperience: (foodId: string, attitude: ExperienceAttitude, reason?: string) => Promise<void>;
   toggleFavorite: (foodId: string) => Promise<void>;
   addFood: (input: AddFoodInput) => Promise<string>;
+  requestLogin: () => void;
   signOut: () => Promise<void>;
 };
 
 const StoreContext = createContext<AppStore | null>(null);
 const STORAGE_KEY = "shushu-food-demo-v2";
 
+const guestProfile: Profile = { id: "guest", nickname: "朋友", role: "member", status: "active" };
+
 type StoredState = Pick<AppStore, "places" | "foods" | "experiences" | "favorites" | "decisions">;
 
 function initialDemoState(): StoredState {
-  return { places: demoPlaces, foods: demoFoods, experiences: demoExperiences, favorites: ["f1", "f5"], decisions: [] };
+  return { places: demoPlaces, foods: demoFoods, experiences: demoExperiences, favorites: [], decisions: [] };
 }
 
 export function AppStoreProvider({ children }: { children: React.ReactNode }) {
@@ -54,7 +59,8 @@ export function AppStoreProvider({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string>();
-  const [currentUser, setCurrentUser] = useState<Profile>(demoProfiles[0]);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [currentUser, setCurrentUser] = useState<Profile>(guestProfile);
   const [state, setState] = useState<StoredState>(initialDemoState);
   const dataMode = isSupabaseConfigured() ? "supabase" : "demo";
 
@@ -62,9 +68,16 @@ export function AppStoreProvider({ children }: { children: React.ReactNode }) {
     async function load() {
       if (dataMode === "demo") {
         const stored = window.localStorage.getItem(STORAGE_KEY);
+        const demoAuthenticated = window.localStorage.getItem(DEMO_AUTH_STORAGE_KEY) === "1";
         if (stored) {
-          try { setState(JSON.parse(stored) as StoredState); } catch { window.localStorage.removeItem(STORAGE_KEY); }
+          try {
+            const nextState = JSON.parse(stored) as StoredState;
+            setState(demoAuthenticated ? nextState : { ...nextState, experiences: [], favorites: [], decisions: [] });
+          } catch { window.localStorage.removeItem(STORAGE_KEY); }
         }
+        setIsAuthenticated(demoAuthenticated);
+        setCurrentUser(demoAuthenticated ? demoProfiles[0] : guestProfile);
+        if (!demoAuthenticated && !stored) setState(initialDemoState);
         setLoading(false);
         return;
       }
@@ -73,8 +86,25 @@ export function AppStoreProvider({ children }: { children: React.ReactNode }) {
       if (!supabase) return;
       const { data: auth } = await supabase.auth.getUser();
       if (!auth.user) {
-        if (pathname.startsWith("/share/")) { setLoading(false); return; }
-        router.replace("/login"); return;
+        if (!isPublicPagePath(pathname)) { router.replace(loginHref(pathname)); return; }
+        const [placesResult, foodsResult] = await Promise.all([
+          supabase.from("places").select("*").eq("status", "open"),
+          supabase.from("food_items").select("*, food_item_tags(tags(name)), food_item_images(url, sort_order)").eq("status", "available"),
+        ]);
+        const firstError = [placesResult, foodsResult].find((result) => result.error)?.error;
+        if (firstError) { setError(firstError.message); setLoading(false); return; }
+        const places: Place[] = (placesResult.data ?? []).map((row) => ({ id: row.id, name: row.name, category: row.category, address: row.address, latitude: Number(row.latitude), longitude: Number(row.longitude), averagePriceCents: row.average_price_cents ?? undefined, notes: row.notes ?? undefined, coordinateStatus: row.coordinate_status ?? undefined, status: row.status, createdBy: row.created_by ?? undefined }));
+        const foods: FoodItem[] = (foodsResult.data ?? []).map((row) => ({
+          id: row.id, placeId: row.place_id, name: row.name, description: row.description ?? "", priceCents: row.price_cents ?? undefined, mealType: row.meal_type,
+          serviceModes: row.service_modes ?? [], tags: (row.food_item_tags ?? []).map((item: { tags: { name: string } | null }) => item.tags?.name).filter(Boolean) as string[],
+          imageUrl: [...(row.food_item_images ?? [])].sort((a: { sort_order: number }, b: { sort_order: number }) => a.sort_order - b.sort_order)[0]?.url,
+          status: row.status, createdBy: row.created_by ?? undefined,
+        }));
+        setIsAuthenticated(false);
+        setCurrentUser(guestProfile);
+        setState({ places, foods, experiences: [], favorites: [], decisions: [] });
+        setLoading(false);
+        return;
       }
       const [profileResult, profilesResult, placesResult, foodsResult, experiencesResult, favoritesResult, decisionsResult] = await Promise.all([
         // A user's own profile must remain readable while it is awaiting activation.
@@ -117,6 +147,7 @@ export function AppStoreProvider({ children }: { children: React.ReactNode }) {
         }),
       }));
       setCurrentUser(profiles.find((profile) => profile.id === auth.user!.id) ?? { id: auth.user.id, nickname: auth.user.email?.split("@")[0] ?? "鼠鼠", role: "member", status: "active" });
+      setIsAuthenticated(true);
       setState({ places, foods, experiences, favorites: (favoritesResult.data ?? []).map((row) => row.food_item_id), decisions });
       setLoading(false);
     }
@@ -124,15 +155,21 @@ export function AppStoreProvider({ children }: { children: React.ReactNode }) {
   }, [dataMode, pathname, router]);
 
   useEffect(() => {
-    if (!loading && dataMode === "demo") window.localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-  }, [dataMode, loading, state]);
+    if (!loading && dataMode === "demo" && isAuthenticated) window.localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  }, [dataMode, isAuthenticated, loading, state]);
+
+  const requestLogin = useCallback(() => {
+    router.push(loginHref(pathname));
+  }, [pathname, router]);
 
   const createDecision = useCallback(async (input: DecisionInput) => {
     const id = crypto.randomUUID();
     const candidates = recommendFoods({ decisionId: id, userId: currentUser.id, input, foods: state.foods, places: state.places, experiences: state.experiences });
     const decision: Decision = { id, input, candidates, createdAt: new Date().toISOString(), feedbackPending: false };
-    setState((old) => ({ ...old, decisions: [decision, ...old.decisions] }));
-    if (dataMode === "supabase") {
+    // A recommendation is a public read. Only signed-in users get a history
+    // entry that can later be selected or reviewed.
+    if (isAuthenticated) setState((old) => ({ ...old, decisions: [decision, ...old.decisions] }));
+    if (dataMode === "supabase" && isAuthenticated) {
       const supabase = createClient();
       const { error: decisionError } = await supabase!.from("decisions").insert({ id, user_id: currentUser.id, input, feedback_pending: false });
       if (decisionError) throw new Error(decisionError.message);
@@ -142,19 +179,24 @@ export function AppStoreProvider({ children }: { children: React.ReactNode }) {
       }
     }
     return decision;
-  }, [currentUser.id, dataMode, state.experiences, state.foods, state.places]);
+  }, [currentUser.id, dataMode, isAuthenticated, state.experiences, state.foods, state.places]);
 
   const selectFood = useCallback(async (decisionId: string, foodId: string) => {
     const decision = state.decisions.find((item) => item.id === decisionId);
+    if (!isAuthenticated) {
+      if (!state.foods.some((food) => food.id === foodId)) throw new Error("没有找到这道食物");
+      return;
+    }
     if (!decision?.candidates.some((candidate) => candidate.foodId === foodId)) throw new Error("只能选择本次推荐中的食物");
     setState((old) => ({ ...old, decisions: old.decisions.map((item) => item.id === decisionId ? { ...item, selectedFoodId: foodId, feedbackPending: true } : item) }));
     if (dataMode === "supabase") {
       const { error } = await createClient()!.from("decisions").update({ selected_food_id: foodId, feedback_pending: true, selected_at: new Date().toISOString() }).eq("id", decisionId);
       if (error) throw new Error(error.message);
     }
-  }, [dataMode, state.decisions]);
+  }, [dataMode, isAuthenticated, state.decisions, state.foods]);
 
   const submitExperience = useCallback(async (foodId: string, attitude: ExperienceAttitude, reason?: string) => {
+    if (!isAuthenticated) { requestLogin(); return; }
     const next = { userId: currentUser.id, foodId, attitude, reason, createdAt: new Date().toISOString(), authorName: currentUser.nickname };
     setState((old) => ({ ...old, experiences: [...old.experiences.filter((item) => !(item.userId === currentUser.id && item.foodId === foodId)), next], decisions: old.decisions.map((item) => item.selectedFoodId === foodId && item.feedbackPending ? { ...item, feedbackPending: false } : item) }));
     if (dataMode === "supabase") {
@@ -163,9 +205,10 @@ export function AppStoreProvider({ children }: { children: React.ReactNode }) {
       if (error) throw new Error(error.message);
       await supabase.from("decisions").update({ feedback_pending: false }).eq("user_id", currentUser.id).eq("selected_food_id", foodId).eq("feedback_pending", true);
     }
-  }, [currentUser, dataMode]);
+  }, [currentUser, dataMode, isAuthenticated, requestLogin]);
 
   const toggleFavorite = useCallback(async (foodId: string) => {
+    if (!isAuthenticated) { requestLogin(); return; }
     const active = state.favorites.includes(foodId);
     setState((old) => ({ ...old, favorites: active ? old.favorites.filter((id) => id !== foodId) : [...old.favorites, foodId] }));
     if (dataMode === "supabase") {
@@ -173,9 +216,10 @@ export function AppStoreProvider({ children }: { children: React.ReactNode }) {
       const { error } = active ? await query.delete().eq("user_id", currentUser.id).eq("food_item_id", foodId) : await query.insert({ user_id: currentUser.id, food_item_id: foodId });
       if (error) throw new Error(error.message);
     }
-  }, [currentUser.id, dataMode, state.favorites]);
+  }, [currentUser.id, dataMode, isAuthenticated, requestLogin, state.favorites]);
 
   const addFood = useCallback(async (input: AddFoodInput) => {
+    if (!isAuthenticated) { requestLogin(); throw new Error("请先登录后再添加食物"); }
     const existingPlace = state.places.find((place) => normalizeName(place.name) === normalizeName(input.placeName));
     const place: Place = existingPlace ?? { id: crypto.randomUUID(), name: input.placeName, category: "其他", address: "上海大学宝山校区周边", latitude: input.latitude ?? CAMPUS_CENTER.latitude, longitude: input.longitude ?? CAMPUS_CENTER.longitude, status: "open", createdBy: currentUser.id };
     const duplicate = state.foods.find((food) => food.placeId === place.id && normalizeName(food.name) === normalizeName(input.name));
@@ -193,14 +237,18 @@ export function AppStoreProvider({ children }: { children: React.ReactNode }) {
       for (const tagName of input.tags) await supabase.rpc("attach_food_tag", { p_food_id: food.id, p_tag_name: tagName });
     }
     return food.id;
-  }, [currentUser.id, dataMode, state.foods, state.places]);
+  }, [currentUser.id, dataMode, isAuthenticated, requestLogin, state.foods, state.places]);
 
   const signOut = useCallback(async () => {
     if (dataMode === "supabase") await createClient()!.auth.signOut();
-    router.push("/login"); router.refresh();
+    if (dataMode === "demo") window.localStorage.removeItem(DEMO_AUTH_STORAGE_KEY);
+    setIsAuthenticated(false);
+    setCurrentUser(guestProfile);
+    setState((old) => ({ ...old, experiences: [], favorites: [], decisions: [] }));
+    router.push("/"); router.refresh();
   }, [dataMode, router]);
 
-  const value = useMemo<AppStore>(() => ({ loading, error, dataMode, currentUser, profiles: dataMode === "demo" ? demoProfiles : [currentUser], ...state, pendingDecision: state.decisions.find((item) => item.feedbackPending), createDecision, selectFood, submitExperience, toggleFavorite, addFood, signOut }), [addFood, createDecision, currentUser, dataMode, error, loading, selectFood, signOut, state, submitExperience, toggleFavorite]);
+  const value = useMemo<AppStore>(() => ({ loading, error, dataMode, isAuthenticated, currentUser, profiles: dataMode === "demo" ? demoProfiles : [currentUser], ...state, pendingDecision: state.decisions.find((item) => item.feedbackPending), createDecision, selectFood, submitExperience, toggleFavorite, addFood, requestLogin, signOut }), [addFood, createDecision, currentUser, dataMode, error, isAuthenticated, loading, requestLogin, selectFood, signOut, state, submitExperience, toggleFavorite]);
   return <StoreContext.Provider value={value}>{children}</StoreContext.Provider>;
 }
 

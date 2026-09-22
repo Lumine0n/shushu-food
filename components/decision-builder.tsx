@@ -16,7 +16,7 @@ function ToggleGroup<T extends string>({ items, value, onChange }: { items: T[];
 }
 
 export function DecisionBuilder() {
-  const { createDecision, selectFood, favorites, toggleFavorite } = useAppStore();
+  const { createDecision, selectFood, favorites, toggleFavorite, isAuthenticated } = useAppStore();
   const [budget, setBudget] = useState(30);
   const [distance, setDistance] = useState(1500);
   const [selectedMeals, setSelectedMeals] = useState<MealType[]>([]);
@@ -74,7 +74,8 @@ export function DecisionBuilder() {
 
     {decision && <section id="recommendations" className="mt-8 scroll-mt-4">
       <div className="mb-4 flex items-end justify-between"><div><p className="section-label">本次推荐</p><h2 className="serif mt-1 text-2xl font-bold">先看这三个</h2></div>{decision.candidates.length > 3 && <button className="flex min-h-11 items-center gap-1.5 text-sm font-extrabold text-[var(--red)]" onClick={() => setGroup((group + 1) % Math.ceil(decision.candidates.length / 3))}><RefreshCw size={17} />换一组</button>}</div>
-      {visible.length ? <div className="grid gap-4">{visible.map((food) => <FoodCard key={food.foodId} food={food} favorite={favorites.includes(food.foodId)} onFavorite={() => toggleFavorite(food.foodId)} onSelect={async () => { await selectFood(decision.id, food.foodId); setDecision((old) => old ? { ...old, selectedFoodId: food.foodId } : old); }} />)}</div> : <div className="soft-card p-8 text-center"><p className="serif text-xl font-bold">这次没有找到合适的</p><p className="mt-2 text-sm text-[var(--muted)]">试试提高预算或扩大距离，我们不会偷偷放宽你的硬条件。</p><button className="secondary-button mt-4" onClick={() => { setBudget(50); setDistance(3000); setSelectedMeals([]); setWantedTags([]); }}>清除部分条件</button></div>}
+      {visible.length ? <div className="grid gap-4">{visible.map((food) => <FoodCard key={food.foodId} food={food} favorite={isAuthenticated && favorites.includes(food.foodId)} onFavorite={() => toggleFavorite(food.foodId)} onSelect={async () => { await selectFood(decision.id, food.foodId); setDecision((old) => old ? { ...old, selectedFoodId: food.foodId } : old); }} />)}</div> : <div className="soft-card p-8 text-center"><p className="serif text-xl font-bold">这次没有找到合适的</p><p className="mt-2 text-sm text-[var(--muted)]">试试提高预算或扩大距离，我们不会偷偷放宽你的硬条件。</p><button className="secondary-button mt-4" onClick={() => { setBudget(50); setDistance(3000); setSelectedMeals([]); setWantedTags([]); }}>清除部分条件</button></div>}
+      {!isAuthenticated && decision.selectedFoodId && <p role="status" className="mt-4 rounded-xl bg-[#eef2ec] px-4 py-3 text-sm font-bold text-[var(--green)]">这次就吃「{decision.candidates.find((food) => food.foodId === decision.selectedFoodId)?.foodName}」！登录后可以保存选择和吃后反馈。</p>}
     </section>}
   </>;
 }

@@ -11,7 +11,7 @@
 
 ## 当前状态
 
-- 首页可以调用 `/api/miniapp/recommend` 获取推荐。
+- 小程序默认进入首页，免登录调用 `/api/miniapp/recommend` 获取推荐。目前该接口仍使用演示目录，尚未接入 Supabase 真实目录。
 - 登录页调用 `/api/miniapp/auth/login`，后端已预留 `code2Session` 交换逻辑。
 - 真实用户绑定和会话签发需要配置 `WECHAT_MINIPROGRAM_APPID`、`WECHAT_MINIPROGRAM_SECRET`，并补齐服务端 profiles 映射。
 - 推荐算法与网页共用 `lib/recommendation.ts`，避免两端规则分叉。
