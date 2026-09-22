@@ -19,6 +19,31 @@ test("guest can draw a food but must log in to change the list", async ({ page }
   await expect(page.getByRole("button", { name: "保存这道食物" })).toBeVisible();
 });
 
+test("guest login gates preserve personal and share destinations", async ({ page }) => {
+  await page.goto("/me");
+  await expect(page.getByRole("heading", { name: "登录后查看个人清单" })).toBeVisible();
+  await page.getByRole("link", { name: "去登录" }).click();
+  await page.getByRole("button", { name: "进入演示模式" }).click();
+  await expect(page).toHaveURL(/\/me$/);
+  await expect(page.getByRole("heading", { name: /的饭桌/ })).toBeVisible();
+
+  await page.getByRole("button", { name: "退出登录" }).click();
+  await page.goto("/food/f1");
+  await page.getByRole("button", { name: "分享" }).click();
+  await expect(page).toHaveURL(/\/login\?next=%2Ffood%2Ff1$/);
+  await page.getByRole("button", { name: "进入演示模式" }).click();
+  await expect(page).toHaveURL(/\/food\/f1$/);
+  await expect(page.getByRole("heading", { name: "白斩鸡" })).toBeVisible();
+});
+
+test("guest recovers from malformed local demo storage", async ({ page }) => {
+  await page.addInitScript(() => window.localStorage.setItem("shushu-food-demo-v2", "{not-json"));
+  await page.goto("/");
+  await expect(page.getByRole("heading", { name: /今天吃点什么/ })).toBeVisible();
+  await page.getByRole("button", { name: "看看现在吃什么" }).click();
+  await expect(page.getByText("先看这三个")).toBeVisible();
+});
+
 test("demo user can decide, choose and leave feedback", async ({ page }) => {
   await page.goto("/login");
   await page.getByRole("button", { name: "进入演示模式" }).click();
