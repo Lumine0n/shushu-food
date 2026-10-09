@@ -154,7 +154,7 @@
     if (!root.Matter) return createFallback(canvas, opts);
 
     var M = root.Matter;
-    var engine = M.Engine.create({ gravity: { y: 1.1 }, enableSleeping: false });
+    var engine = M.Engine.create({ gravity: { y: 1.15 }, enableSleeping: false });
     var world = engine.world;
     var ctx = canvas.getContext("2d");
     var dpr = Math.min(root.devicePixelRatio || 1, 2);
@@ -162,6 +162,8 @@
     var balls = new Map();
     var cancelled = {};
     var shaking = 0;
+    var tilt = 0;
+    var gRest = 1.15;
 
     function layout() {
       var rect = canvas.parentElement.getBoundingClientRect();
@@ -191,9 +193,10 @@
       M.Composite.add(world, walls);
 
       balls.forEach(function (b) {
+        if (!b.body) return;
         var p = b.body.position;
-        if (p.x < jar.x || p.x > jar.x + jar.w || p.y > jar.y + jar.h) {
-          M.Body.setPosition(b.body, { x: W / 2, y: jar.y + 20 });
+        if (p.x < jar.x + b.r || p.x > jar.x + jar.w - b.r || p.y > jar.y + jar.h) {
+          M.Body.setPosition(b.body, { x: W / 2, y: jar.y + jar.h - b.r - 12 });
         }
       });
     }
@@ -276,11 +279,11 @@
       M.Engine.update(engine, dt);
       ctx.clearRect(0, 0, W, H);
       ctx.save();
-      if (shaking > 0) {
-        var a = Math.sin(now / 45) * 0.035 * shaking;
-        ctx.translate(W / 2, H);
-        ctx.rotate(a);
-        ctx.translate(-W / 2, -H);
+      if (tilt) {
+        var px = W / 2, py = jar.y + jar.h;
+        ctx.translate(px, py);
+        ctx.rotate(tilt);
+        ctx.translate(-px, -py);
       }
       drawJarBack();
       balls.forEach(drawBall);
@@ -331,7 +334,7 @@
         var innerR = jar.x + jar.w - pad;
         var targetX = Math.max(innerL, Math.min(innerR, jar.x + jar.w / 2 + (Math.random() - 0.5) * (innerR - innerL) * 0.6));
         // Whole sphere below the rim — never spawn sitting on the lip.
-        var targetY = jar.y + r + 16;
+        var targetY = jar.y + r + 22;
         var fly = (!reduceMotion && spec.from)
           ? flyDom(spec.from, { x: rect.left + targetX, y: rect.top + targetY }, ball, rStart, r)
           : Promise.resolve(null);
@@ -383,30 +386,69 @@
           canvas.classList.remove("fade-pulse"); void canvas.offsetWidth; canvas.classList.add("fade-pulse");
           return wait(500);
         }
-        var duration = light ? 650 : 1500;
-        var start = performance.now();
-        var lid = M.Bodies.rectangle(W / 2, jar.y - 28, jar.w + 120, 60, { isStatic: true, restitution: 0.5 });
-        M.Composite.add(world, lid);
-        var kick = setInterval(function () {
-          balls.forEach(function (b) {
-            if (b.leaving) return;
-            M.Body.setVelocity(b.body, {
-              x: (Math.random() - 0.5) * (light ? 8 : 14),
-              y: -(Math.random() * (light ? 5 : 9) + (light ? 3 : 5))
-            });
-            M.Body.setAngularVelocity(b.body, (Math.random() - 0.5) * 0.6);
+        var gShake = light ? 1.4 : 1.6;
+        engine.gravity.x = 0;
+        engine.gravity.y = gShake;
+        balls.forEach(function (b) {
+          if (!b.body || b.leaving) return;
+          M.Body.set(b.body, { restitution: 0.46, friction: 0.06, frictionAir: 0.006 });
+          M.Body.setVelocity(b.body, {
+            x: (Math.random() - 0.5) * 1.4,
+            y: Math.max(5, b.body.velocity.y)
           });
-        }, light ? 220 : 170);
-        return new Promise(function (resolve) {
-          (function tick() {
-            var t = (performance.now() - start) / duration;
-            shaking = t < 1 ? Math.sin(Math.PI * t) * (light ? 0.6 : 1) : 0;
-            if (t < 1) requestAnimationFrame(tick);
-            else {
-              clearInterval(kick);
-              setTimeout(function () { M.Composite.remove(world, lid); resolve(); }, 250);
-            }
-          })();
+        });
+        // Thin cap at the lip so balls can use the full height, not a ceiling at the mouth.
+        var lid = M.Bodies.rectangle(W / 2, jar.y - 8, jar.w * 0.9, 14, {
+          isStatic: true, restitution: 0.28, friction: 0.15
+        });
+        M.Composite.add(world, lid);
+
+        var sink = light ? 200 : 340;
+        var duration = light ? 900 : 1600;
+        var settle = light ? 300 : 450;
+        var cycles = light ? 3.5 : 5.5;
+        var maxTilt = light ? 0.18 : 0.28;
+
+        return wait(sink).then(function () {
+          var start = performance.now();
+          var lastKick = start;
+          return new Promise(function (resolve) {
+            (function tick(now) {
+              var t = Math.min(1, (now - start) / duration);
+              var envelope = Math.sin(Math.PI * t);
+              tilt = envelope * maxTilt * Math.sin(t * cycles * Math.PI * 2);
+              engine.gravity.x = Math.sin(tilt) * gShake;
+              engine.gravity.y = Math.cos(tilt) * gShake;
+              shaking = envelope;
+              if (now - lastKick > (light ? 280 : 240) && t > 0.06 && t < 0.86) {
+                lastKick = now;
+                var dir = tilt === 0 ? (Math.random() > 0.5 ? 1 : -1) : (tilt > 0 ? 1 : -1);
+                balls.forEach(function (b) {
+                  if (!b.body || b.leaving) return;
+                  var nearFloor = b.body.position.y > jar.y + jar.h * 0.42;
+                  var vx = b.body.velocity.x * 0.3 + dir * (nearFloor ? 8 : 3.5) + (Math.random() - 0.5) * 2;
+                  var vy = nearFloor ? -(6 + Math.random() * 8) : b.body.velocity.y * 0.45 + 2.2;
+                  M.Body.setVelocity(b.body, { x: vx, y: vy });
+                  M.Body.setAngularVelocity(b.body, dir * (0.18 + Math.random() * 0.28));
+                });
+              }
+              if (t < 1) requestAnimationFrame(tick);
+              else {
+                tilt = 0;
+                shaking = 0;
+                engine.gravity.x = 0;
+                engine.gravity.y = gRest;
+                balls.forEach(function (b) {
+                  if (!b.body || b.leaving) return;
+                  M.Body.set(b.body, { restitution: 0.12, friction: 0.16, frictionAir: 0.03 });
+                });
+                wait(settle).then(function () {
+                  M.Composite.remove(world, lid);
+                  resolve();
+                });
+              }
+            })(performance.now());
+          });
         });
       }
     };

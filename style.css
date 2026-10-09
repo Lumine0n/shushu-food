@@ -206,11 +206,7 @@ a, [role="button"] { touch-action: manipulation; }
 .jar-zone { display: flex; flex-direction: column; margin-top: auto; }
 .jar-wrap { position: relative; height: clamp(200px, 32dvh, 320px); }
 .jar-wrap canvas { position: absolute; inset: 0; touch-action: manipulation; }
-.jar-wrap.shaking { animation: jiggle 180ms linear infinite; }
-@keyframes jiggle {
-  25% { transform: translateX(-2px); }
-  75% { transform: translateX(2px); }
-}
+.jar-wrap.shaking { animation: none; }
 .jar-hint {
   text-align: center;
   font-size: 11px;
@@ -270,6 +266,10 @@ a, [role="button"] { touch-action: manipulation; }
   font-weight: 500;
 }
 .wobble { animation: jiggle 180ms linear 4; }
+@keyframes jiggle {
+  25% { transform: translateX(-3px); }
+  75% { transform: translateX(3px); }
+}
 
 .sheet-backdrop {
   position: fixed;
