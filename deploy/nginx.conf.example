@@ -34,13 +34,19 @@ server {
     gzip_types text/plain text/css application/javascript application/json image/svg+xml;
     gzip_min_length 1024;
 
+    # 菜单和页面会经常改，不要缓存一周，否则用户会一直看到旧清单、旧样式
+    location ~* \.(html)$ {
+        add_header Cache-Control "no-cache";
+        try_files $uri =404;
+    }
+
     location ~* \.(js|css|json)$ {
-        expires 7d;
-        add_header Cache-Control "public, max-age=604800";
+        add_header Cache-Control "no-cache, must-revalidate";
         try_files $uri =404;
     }
 
     location / {
+        add_header Cache-Control "no-cache";
         try_files $uri $uri/ /index.html;
     }
 }

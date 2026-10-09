@@ -44,6 +44,15 @@ test("鱼虾+面+不辣+20到40+一个人能完整命中，不放宽主食", () 
   assert.deepStrictEqual(r.relaxed, []);
 });
 
+test("牛肉+面+不辣+20到40+一个人完整命中，不放宽主食", () => {
+  const r = recommend(foods, QUESTIONS, {
+    protein: "牛肉", staple: "面", flavor: "不辣", price: "20-40", scene: "一个人"
+  }, { random: first });
+  assert.strictEqual(r.food.protein, "牛肉");
+  assert.strictEqual(r.food.staple, "面");
+  assert.deepStrictEqual(r.relaxed, []);
+});
+
 test("鱼虾+粉+不辣+20到40+一个人完整命中", () => {
   const r = recommend(foods, QUESTIONS, {
     protein: "鱼虾", staple: "粉", flavor: "不辣", price: "20-40", scene: "一个人"

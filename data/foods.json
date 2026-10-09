@@ -3006,5 +3006,1916 @@
     "sourceUrl": "",
     "addedAt": "2026-10-09",
     "mentions": 1
+  },
+  {
+    "id": "f132",
+    "food": "番茄牛肉面",
+    "place": "水秀食堂面档",
+    "address": "上海大学宝山校区水秀食堂",
+    "protein": "牛肉",
+    "staple": "面",
+    "flavor": "不辣",
+    "price": 22,
+    "scene": [
+      "一个人",
+      "带走"
+    ],
+    "tags": [
+      "番茄",
+      "牛肉面"
+    ],
+    "reason": "番茄汤底配几片牛肉，不辣，食堂面档常供。",
+    "source": "学校食堂介绍",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f133",
+    "food": "葱烧牛肉面",
+    "place": "本帮面馆（上大路）",
+    "address": "上海市宝山区上大路",
+    "protein": "牛肉",
+    "staple": "面",
+    "flavor": "不辣",
+    "price": 32,
+    "scene": [
+      "一个人"
+    ],
+    "tags": [
+      "葱烧",
+      "牛肉面"
+    ],
+    "reason": "本帮葱油香，牛肉焖软，汤不辣。",
+    "source": "公开攻略摘录",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f134",
+    "food": "肥牛拉面",
+    "place": "日式拉面（经纬汇）",
+    "address": "上海市宝山区一二八纪念路经纬汇",
+    "protein": "牛肉",
+    "staple": "面",
+    "flavor": "不辣",
+    "price": 36,
+    "scene": [
+      "一个人"
+    ],
+    "tags": [
+      "肥牛",
+      "拉面"
+    ],
+    "reason": "肥牛铺面上，汤偏咸鲜不辣。",
+    "source": "大众点评摘录",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f135",
+    "food": "牛肉刀削面",
+    "place": "山明食堂",
+    "address": "上海大学宝山校区山明食堂",
+    "protein": "牛肉",
+    "staple": "面",
+    "flavor": "不辣",
+    "price": 20,
+    "scene": [
+      "一个人",
+      "带走"
+    ],
+    "tags": [
+      "刀削面",
+      "牛肉"
+    ],
+    "reason": "宽面配牛肉条，汤不辣，能打包。",
+    "source": "学校食堂介绍",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f136",
+    "food": "招牌牛肉面",
+    "place": "陈香贵兰州牛肉面（沪太路）",
+    "address": "上海市宝山区沪太路",
+    "protein": "牛肉",
+    "staple": "面",
+    "flavor": "不辣",
+    "price": 24,
+    "scene": [
+      "一个人",
+      "带走"
+    ],
+    "tags": [
+      "兰州",
+      "牛肉面"
+    ],
+    "reason": "清汤拉面加牛肉，辣油另加，默认不辣。",
+    "source": "大众点评摘录",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f137",
+    "food": "酸汤牛肉面",
+    "place": "川味面馆（锦秋路）",
+    "address": "上海市宝山区锦秋路",
+    "protein": "牛肉",
+    "staple": "面",
+    "flavor": "辣",
+    "price": 26,
+    "scene": [
+      "一个人",
+      "带走"
+    ],
+    "tags": [
+      "酸汤",
+      "牛肉"
+    ],
+    "reason": "酸辣汤下面配牛肉片，一个人一碗。",
+    "source": "公开攻略摘录",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f138",
+    "food": "鲜虾河粉",
+    "place": "尔美食堂",
+    "address": "上海大学宝山校区尔美食堂",
+    "protein": "鱼虾",
+    "staple": "粉",
+    "flavor": "不辣",
+    "price": 22,
+    "scene": [
+      "一个人",
+      "带走"
+    ],
+    "tags": [
+      "鲜虾",
+      "河粉"
+    ],
+    "reason": "鲜虾配宽河粉，汤不辣，能打包。",
+    "source": "学校食堂介绍",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f139",
+    "food": "鱼蛋米粉",
+    "place": "桂林米粉（锦秋路）",
+    "address": "上海市宝山区锦秋路",
+    "protein": "鱼虾",
+    "staple": "粉",
+    "flavor": "不辣",
+    "price": 24,
+    "scene": [
+      "一个人",
+      "带走"
+    ],
+    "tags": [
+      "鱼蛋",
+      "米粉"
+    ],
+    "reason": "几颗鱼蛋配桂林粉，汤底不辣。",
+    "source": "公开攻略摘录",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f140",
+    "food": "虾滑米线",
+    "place": "过桥园米线（锦秋路）",
+    "address": "上海市宝山区锦秋路",
+    "protein": "鱼虾",
+    "staple": "粉",
+    "flavor": "不辣",
+    "price": 26,
+    "scene": [
+      "一个人",
+      "带走"
+    ],
+    "tags": [
+      "虾滑",
+      "米线"
+    ],
+    "reason": "虾滑下到米线里，汤不辣。",
+    "source": "公开攻略摘录",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f141",
+    "food": "海鲜汤粉",
+    "place": "吾馨食堂",
+    "address": "上海大学宝山校区吾馨食堂",
+    "protein": "鱼虾",
+    "staple": "粉",
+    "flavor": "不辣",
+    "price": 22,
+    "scene": [
+      "一个人"
+    ],
+    "tags": [
+      "海鲜",
+      "汤粉"
+    ],
+    "reason": "虾仁和鱼丸配粉，食堂汤粉不辣。",
+    "source": "学校食堂介绍",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f142",
+    "food": "番茄虾粉",
+    "place": "南区食堂",
+    "address": "上海大学宝山校区南区食堂",
+    "protein": "鱼虾",
+    "staple": "粉",
+    "flavor": "不辣",
+    "price": 20,
+    "scene": [
+      "一个人",
+      "带走"
+    ],
+    "tags": [
+      "番茄",
+      "虾",
+      "粉"
+    ],
+    "reason": "番茄汤底加虾仁，不辣。",
+    "source": "学校食堂介绍",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f143",
+    "food": "清汤海鲜粉",
+    "place": "水秀食堂",
+    "address": "上海大学宝山校区水秀食堂",
+    "protein": "鱼虾",
+    "staple": "粉",
+    "flavor": "清淡",
+    "price": 20,
+    "scene": [
+      "一个人",
+      "带走"
+    ],
+    "tags": [
+      "清汤",
+      "海鲜粉"
+    ],
+    "reason": "清汤海鲜粉，味道淡，适合不想吃重口。",
+    "source": "学校食堂介绍",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f144",
+    "food": "鱼丸粉丝汤",
+    "place": "南京鸭血粉丝（锦秋路）",
+    "address": "上海市宝山区锦秋路",
+    "protein": "鱼虾",
+    "staple": "粉",
+    "flavor": "不辣",
+    "price": 28,
+    "scene": [
+      "一个人",
+      "带走"
+    ],
+    "tags": [
+      "鱼丸",
+      "粉丝"
+    ],
+    "reason": "鱼丸配粉丝，汤不辣，一个人一碗。",
+    "source": "大众点评摘录",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f145",
+    "food": "肥牛米线",
+    "place": "过桥米线（水秀食堂）",
+    "address": "上海大学宝山校区水秀食堂",
+    "protein": "牛肉",
+    "staple": "粉",
+    "flavor": "不辣",
+    "price": 22,
+    "scene": [
+      "一个人"
+    ],
+    "tags": [
+      "肥牛",
+      "米线"
+    ],
+    "reason": "薄切肥牛烫米线，汤不辣。",
+    "source": "学校食堂介绍",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f146",
+    "food": "番茄肥牛粉",
+    "place": "吾馨食堂",
+    "address": "上海大学宝山校区吾馨食堂",
+    "protein": "牛肉",
+    "staple": "粉",
+    "flavor": "不辣",
+    "price": 20,
+    "scene": [
+      "一个人",
+      "带走"
+    ],
+    "tags": [
+      "番茄",
+      "肥牛"
+    ],
+    "reason": "番茄汤配肥牛和粉，不辣。",
+    "source": "学校食堂介绍",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f147",
+    "food": "清汤牛肉粉",
+    "place": "桂林米粉（锦秋路）",
+    "address": "上海市宝山区锦秋路",
+    "protein": "牛肉",
+    "staple": "粉",
+    "flavor": "清淡",
+    "price": 22,
+    "scene": [
+      "一个人",
+      "带走"
+    ],
+    "tags": [
+      "牛肉",
+      "米粉",
+      "清汤"
+    ],
+    "reason": "清汤牛肉米粉，味道淡。",
+    "source": "公开攻略摘录",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f148",
+    "food": "麻辣肥牛粉",
+    "place": "张亮麻辣烫（上大路）",
+    "address": "上海市宝山区上大路",
+    "protein": "牛肉",
+    "staple": "粉",
+    "flavor": "辣",
+    "price": 28,
+    "scene": [
+      "一个人",
+      "带走"
+    ],
+    "tags": [
+      "肥牛",
+      "麻辣烫"
+    ],
+    "reason": "肥牛加土豆粉，麻辣，能打包。",
+    "source": "大众点评摘录",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f149",
+    "food": "鸡汤米线",
+    "place": "过桥园米线（锦秋路）",
+    "address": "上海市宝山区锦秋路",
+    "protein": "鸡肉",
+    "staple": "粉",
+    "flavor": "清淡",
+    "price": 22,
+    "scene": [
+      "一个人",
+      "带走"
+    ],
+    "tags": [
+      "鸡汤",
+      "米线"
+    ],
+    "reason": "鸡汤米线，味道淡，能带走。",
+    "source": "公开攻略摘录",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f150",
+    "food": "麻辣鸡块米线",
+    "place": "鱼你在一起（弘基广场）",
+    "address": "上海市宝山区祁连山路弘基广场",
+    "protein": "鸡肉",
+    "staple": "粉",
+    "flavor": "辣",
+    "price": 26,
+    "scene": [
+      "一个人",
+      "带走"
+    ],
+    "tags": [
+      "鸡块",
+      "米线",
+      "麻辣"
+    ],
+    "reason": "鸡块配米线，偏辣。",
+    "source": "大众点评摘录",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f151",
+    "food": "口水鸡拌面",
+    "place": "尔美食堂",
+    "address": "上海大学宝山校区尔美食堂",
+    "protein": "鸡肉",
+    "staple": "面",
+    "flavor": "辣",
+    "price": 20,
+    "scene": [
+      "一个人"
+    ],
+    "tags": [
+      "口水鸡",
+      "拌面"
+    ],
+    "reason": "口水鸡切块拌面，麻辣。",
+    "source": "学校食堂介绍",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f152",
+    "food": "宫保鸡丁拌面",
+    "place": "益新食堂",
+    "address": "上海大学宝山校区益新食堂",
+    "protein": "鸡肉",
+    "staple": "面",
+    "flavor": "辣",
+    "price": 16,
+    "scene": [
+      "一个人",
+      "带走"
+    ],
+    "tags": [
+      "宫保鸡丁",
+      "拌面"
+    ],
+    "reason": "宫保鸡丁拌面，偏甜辣。",
+    "source": "学校食堂介绍",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f153",
+    "food": "辣子鸡盖饭",
+    "place": "兰湘子（经纬汇店）",
+    "address": "上海市宝山区一二八纪念路经纬汇",
+    "protein": "鸡肉",
+    "staple": "米饭",
+    "flavor": "辣",
+    "price": 32,
+    "scene": [
+      "一个人",
+      "带走"
+    ],
+    "tags": [
+      "辣子鸡",
+      "盖饭"
+    ],
+    "reason": "干辣鸡丁盖饭，一个人一份。",
+    "source": "大众点评摘录",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f154",
+    "food": "农家小炒鸡饭",
+    "place": "老乡鸡（大华虎城店）",
+    "address": "上海市宝山区大华路大华虎城",
+    "protein": "鸡肉",
+    "staple": "米饭",
+    "flavor": "不辣",
+    "price": 28,
+    "scene": [
+      "一个人",
+      "带走"
+    ],
+    "tags": [
+      "小炒鸡",
+      "盖饭"
+    ],
+    "reason": "鸡丁配青椒，可以选免辣。",
+    "source": "大众点评摘录",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f155",
+    "food": "鸡汤香菇面",
+    "place": "老乡鸡（大华虎城店）",
+    "address": "上海市宝山区大华路大华虎城",
+    "protein": "鸡肉",
+    "staple": "面",
+    "flavor": "清淡",
+    "price": 26,
+    "scene": [
+      "一个人",
+      "带走"
+    ],
+    "tags": [
+      "鸡汤",
+      "香菇面"
+    ],
+    "reason": "鸡汤下面，味道清淡。",
+    "source": "大众点评摘录",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f156",
+    "food": "肥西老母鸡汤米饭",
+    "place": "老乡鸡（大华虎城店）",
+    "address": "上海市宝山区大华路大华虎城",
+    "protein": "鸡肉",
+    "staple": "米饭",
+    "flavor": "清淡",
+    "price": 34,
+    "scene": [
+      "一个人"
+    ],
+    "tags": [
+      "鸡汤",
+      "米饭"
+    ],
+    "reason": "鸡汤配米饭，味道淡，一个人也能点。",
+    "source": "大众点评摘录",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f157",
+    "food": "咖喱鸡饭",
+    "place": "南区食堂",
+    "address": "上海大学宝山校区南区食堂",
+    "protein": "鸡肉",
+    "staple": "米饭",
+    "flavor": "不辣",
+    "price": 20,
+    "scene": [
+      "一个人",
+      "带走"
+    ],
+    "tags": [
+      "咖喱",
+      "鸡肉"
+    ],
+    "reason": "咖喱不辣，鸡块配米饭。",
+    "source": "学校食堂介绍",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f158",
+    "food": "香酥鸡腿堡",
+    "place": "华莱士（上大路）",
+    "address": "上海市宝山区上大路",
+    "protein": "鸡肉",
+    "staple": "汉堡披萨",
+    "flavor": "不辣",
+    "price": 14,
+    "scene": [
+      "一个人",
+      "带走"
+    ],
+    "tags": [
+      "鸡腿堡"
+    ],
+    "reason": "炸鸡腿堡，默认不辣，价格低。",
+    "source": "公开攻略摘录",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f159",
+    "food": "原味板烧鸡腿堡",
+    "place": "麦当劳（经纬汇店）",
+    "address": "上海市宝山区一二八纪念路经纬汇",
+    "protein": "鸡肉",
+    "staple": "汉堡披萨",
+    "flavor": "清淡",
+    "price": 22,
+    "scene": [
+      "一个人",
+      "带走"
+    ],
+    "tags": [
+      "板烧鸡腿堡"
+    ],
+    "reason": "酱不辣，鸡肉汉堡里相对清淡的一款。",
+    "source": "大众点评摘录",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f160",
+    "food": "梅菜扣肉饭",
+    "place": "真功夫（大华虎城店）",
+    "address": "上海市宝山区大华路大华虎城",
+    "protein": "猪肉",
+    "staple": "米饭",
+    "flavor": "不辣",
+    "price": 32,
+    "scene": [
+      "一个人",
+      "带走"
+    ],
+    "tags": [
+      "梅菜扣肉"
+    ],
+    "reason": "扣肉软、梅菜咸香，不辣。",
+    "source": "大众点评摘录",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f161",
+    "food": "排骨蒸饭",
+    "place": "真功夫（大华虎城店）",
+    "address": "上海市宝山区大华路大华虎城",
+    "protein": "猪肉",
+    "staple": "米饭",
+    "flavor": "清淡",
+    "price": 28,
+    "scene": [
+      "一个人",
+      "带走"
+    ],
+    "tags": [
+      "排骨",
+      "蒸饭"
+    ],
+    "reason": "蒸排骨配米饭，味道淡。",
+    "source": "大众点评摘录",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f162",
+    "food": "红烧肉盖饭",
+    "place": "大米先生（经纬汇店）",
+    "address": "上海市宝山区一二八纪念路经纬汇",
+    "protein": "猪肉",
+    "staple": "米饭",
+    "flavor": "不辣",
+    "price": 26,
+    "scene": [
+      "一个人",
+      "带走"
+    ],
+    "tags": [
+      "红烧肉",
+      "盖饭"
+    ],
+    "reason": "红烧肉偏甜，盖饭很能填肚子。",
+    "source": "大众点评摘录",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f163",
+    "food": "小炒肉盖饭",
+    "place": "兰湘子（经纬汇店）",
+    "address": "上海市宝山区一二八纪念路经纬汇",
+    "protein": "猪肉",
+    "staple": "米饭",
+    "flavor": "辣",
+    "price": 30,
+    "scene": [
+      "一个人",
+      "带走"
+    ],
+    "tags": [
+      "小炒肉",
+      "盖饭"
+    ],
+    "reason": "湘味小炒肉盖饭，偏辣。",
+    "source": "大众点评摘录",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f164",
+    "food": "肉丝炒面",
+    "place": "沙县小吃（锦秋路）",
+    "address": "上海市宝山区锦秋路",
+    "protein": "猪肉",
+    "staple": "面",
+    "flavor": "不辣",
+    "price": 16,
+    "scene": [
+      "一个人",
+      "带走"
+    ],
+    "tags": [
+      "肉丝",
+      "炒面"
+    ],
+    "reason": "肉丝炒面，不辣，出餐快。",
+    "source": "公开攻略摘录",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f165",
+    "food": "卤肉拌面",
+    "place": "沙县小吃（锦秋路）",
+    "address": "上海市宝山区锦秋路",
+    "protein": "猪肉",
+    "staple": "面",
+    "flavor": "不辣",
+    "price": 14,
+    "scene": [
+      "一个人",
+      "带走"
+    ],
+    "tags": [
+      "卤肉",
+      "拌面"
+    ],
+    "reason": "卤肉浇面上，不辣。",
+    "source": "公开攻略摘录",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f166",
+    "food": "鲜肉云吞面",
+    "place": "南区食堂面档",
+    "address": "上海大学宝山校区南区食堂",
+    "protein": "猪肉",
+    "staple": "面",
+    "flavor": "不辣",
+    "price": 20,
+    "scene": [
+      "一个人",
+      "带走"
+    ],
+    "tags": [
+      "云吞",
+      "鲜肉"
+    ],
+    "reason": "鲜肉云吞配汤面，不辣。",
+    "source": "学校食堂介绍",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f167",
+    "food": "肉末米粉",
+    "place": "桂林米粉（锦秋路）",
+    "address": "上海市宝山区锦秋路",
+    "protein": "猪肉",
+    "staple": "粉",
+    "flavor": "不辣",
+    "price": 18,
+    "scene": [
+      "一个人",
+      "带走"
+    ],
+    "tags": [
+      "肉末",
+      "米粉"
+    ],
+    "reason": "肉末浇粉，汤不辣。",
+    "source": "公开攻略摘录",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f168",
+    "food": "酸辣肥肠粉",
+    "place": "柳州螺蛳粉（共康路）",
+    "address": "上海市宝山区共康路",
+    "protein": "猪肉",
+    "staple": "粉",
+    "flavor": "辣",
+    "price": 26,
+    "scene": [
+      "一个人",
+      "带走"
+    ],
+    "tags": [
+      "肥肠",
+      "酸辣粉"
+    ],
+    "reason": "肥肠配酸辣粉，味重。",
+    "source": "公开攻略摘录",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f169",
+    "food": "清汤排骨粉",
+    "place": "山明食堂",
+    "address": "上海大学宝山校区山明食堂",
+    "protein": "猪肉",
+    "staple": "粉",
+    "flavor": "清淡",
+    "price": 20,
+    "scene": [
+      "一个人"
+    ],
+    "tags": [
+      "排骨",
+      "汤粉"
+    ],
+    "reason": "清汤排骨粉，味道淡。",
+    "source": "学校食堂介绍",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f170",
+    "food": "香肠披萨",
+    "place": "必胜客（经纬汇店）",
+    "address": "上海市宝山区一二八纪念路经纬汇",
+    "protein": "猪肉",
+    "staple": "汉堡披萨",
+    "flavor": "不辣",
+    "price": 38,
+    "scene": [
+      "一个人",
+      "聚餐"
+    ],
+    "tags": [
+      "香肠",
+      "披萨"
+    ],
+    "reason": "个人装香肠披萨，不辣。",
+    "source": "大众点评摘录",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f171",
+    "food": "火腿披萨",
+    "place": "萨莉亚（大华虎城店）",
+    "address": "上海市宝山区大华路大华虎城",
+    "protein": "猪肉",
+    "staple": "汉堡披萨",
+    "flavor": "不辣",
+    "price": 28,
+    "scene": [
+      "一个人",
+      "聚餐"
+    ],
+    "tags": [
+      "火腿",
+      "披萨"
+    ],
+    "reason": "火腿披萨，一个人也能点完。",
+    "source": "大众点评摘录",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f172",
+    "food": "清蒸鲈鱼饭",
+    "place": "老娘舅（大华虎城店）",
+    "address": "上海市宝山区大华路大华虎城",
+    "protein": "鱼虾",
+    "staple": "米饭",
+    "flavor": "清淡",
+    "price": 34,
+    "scene": [
+      "一个人"
+    ],
+    "tags": [
+      "清蒸鲈鱼"
+    ],
+    "reason": "清蒸鲈鱼配米饭，味道淡。",
+    "source": "大众点评摘录",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f173",
+    "food": "糖醋鱼块饭",
+    "place": "尔美食堂",
+    "address": "上海大学宝山校区尔美食堂",
+    "protein": "鱼虾",
+    "staple": "米饭",
+    "flavor": "不辣",
+    "price": 20,
+    "scene": [
+      "一个人"
+    ],
+    "tags": [
+      "糖醋鱼",
+      "盖饭"
+    ],
+    "reason": "糖醋鱼块盖饭，酸甜不辣。",
+    "source": "学校食堂介绍",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f174",
+    "food": "香辣鱼饭",
+    "place": "吾馨食堂",
+    "address": "上海大学宝山校区吾馨食堂",
+    "protein": "鱼虾",
+    "staple": "米饭",
+    "flavor": "辣",
+    "price": 22,
+    "scene": [
+      "一个人"
+    ],
+    "tags": [
+      "香辣鱼",
+      "盖饭"
+    ],
+    "reason": "香辣鱼块打饭，偏辣。",
+    "source": "学校食堂介绍",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f175",
+    "food": "酸菜鱼饭",
+    "place": "鱼你在一起（弘基广场）",
+    "address": "上海市宝山区祁连山路弘基广场",
+    "protein": "鱼虾",
+    "staple": "米饭",
+    "flavor": "辣",
+    "price": 34,
+    "scene": [
+      "一个人",
+      "带走"
+    ],
+    "tags": [
+      "酸菜鱼",
+      "盖饭"
+    ],
+    "reason": "酸菜鱼浇到米饭上，偏辣，一人份。",
+    "source": "大众点评摘录",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f176",
+    "food": "虾仁滑蛋意面",
+    "place": "萨莉亚（大华虎城店）",
+    "address": "上海市宝山区大华路大华虎城",
+    "protein": "鱼虾",
+    "staple": "面",
+    "flavor": "清淡",
+    "price": 30,
+    "scene": [
+      "一个人",
+      "聚餐"
+    ],
+    "tags": [
+      "虾仁",
+      "意面"
+    ],
+    "reason": "虾仁滑蛋意面，味道偏淡。",
+    "source": "大众点评摘录",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f177",
+    "food": "麦香鱼",
+    "place": "麦当劳（经纬汇店）",
+    "address": "上海市宝山区一二八纪念路经纬汇",
+    "protein": "鱼虾",
+    "staple": "汉堡披萨",
+    "flavor": "不辣",
+    "price": 18,
+    "scene": [
+      "一个人",
+      "带走"
+    ],
+    "tags": [
+      "麦香鱼",
+      "汉堡"
+    ],
+    "reason": "鱼排汉堡，不辣，带走方便。",
+    "source": "大众点评摘录",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f178",
+    "food": "鳕鱼堡",
+    "place": "肯德基（山明食堂）",
+    "address": "上海大学宝山校区山明食堂",
+    "protein": "鱼虾",
+    "staple": "汉堡披萨",
+    "flavor": "清淡",
+    "price": 20,
+    "scene": [
+      "一个人",
+      "带走"
+    ],
+    "tags": [
+      "鳕鱼堡"
+    ],
+    "reason": "鳕鱼排汉堡，味道淡。",
+    "source": "大众点评摘录",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f179",
+    "food": "麻婆豆腐饭",
+    "place": "吾馨食堂",
+    "address": "上海大学宝山校区吾馨食堂",
+    "protein": "素食",
+    "staple": "米饭",
+    "flavor": "辣",
+    "price": 14,
+    "scene": [
+      "一个人"
+    ],
+    "tags": [
+      "麻婆豆腐"
+    ],
+    "reason": "麻婆豆腐打饭，麻辣。",
+    "source": "学校食堂介绍",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f180",
+    "food": "鱼香茄子面",
+    "place": "尔美食堂",
+    "address": "上海大学宝山校区尔美食堂",
+    "protein": "素食",
+    "staple": "面",
+    "flavor": "辣",
+    "price": 16,
+    "scene": [
+      "一个人"
+    ],
+    "tags": [
+      "鱼香茄子",
+      "拌面"
+    ],
+    "reason": "鱼香茄子拌面，偏甜辣。",
+    "source": "学校食堂介绍",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f181",
+    "food": "炸酱素面",
+    "place": "益新食堂",
+    "address": "上海大学宝山校区益新食堂",
+    "protein": "素食",
+    "staple": "面",
+    "flavor": "不辣",
+    "price": 12,
+    "scene": [
+      "一个人",
+      "带走"
+    ],
+    "tags": [
+      "炸酱",
+      "素面"
+    ],
+    "reason": "黄豆炸酱拌素面，不辣。",
+    "source": "学校食堂介绍",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f182",
+    "food": "蘑菇意面",
+    "place": "必胜客（经纬汇店）",
+    "address": "上海市宝山区一二八纪念路经纬汇",
+    "protein": "素食",
+    "staple": "面",
+    "flavor": "不辣",
+    "price": 34,
+    "scene": [
+      "一个人",
+      "聚餐"
+    ],
+    "tags": [
+      "蘑菇",
+      "意面"
+    ],
+    "reason": "奶油蘑菇意面，不辣，一个人能吃完。",
+    "source": "大众点评摘录",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f183",
+    "food": "蔬菜烩饭",
+    "place": "萨莉亚（大华虎城店）",
+    "address": "上海市宝山区大华路大华虎城",
+    "protein": "素食",
+    "staple": "米饭",
+    "flavor": "不辣",
+    "price": 26,
+    "scene": [
+      "一个人",
+      "聚餐"
+    ],
+    "tags": [
+      "蔬菜",
+      "烩饭"
+    ],
+    "reason": "时蔬烩饭，不辣。",
+    "source": "大众点评摘录",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f184",
+    "food": "清炒时蔬饭",
+    "place": "老娘舅（大华虎城店）",
+    "address": "上海市宝山区大华路大华虎城",
+    "protein": "素食",
+    "staple": "米饭",
+    "flavor": "清淡",
+    "price": 22,
+    "scene": [
+      "一个人",
+      "带走"
+    ],
+    "tags": [
+      "时蔬",
+      "盖饭"
+    ],
+    "reason": "清炒时蔬配米饭，味道淡。",
+    "source": "大众点评摘录",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f185",
+    "food": "酸辣土豆粉",
+    "place": "杨国福麻辣烫（上海大学店）",
+    "address": "上海市宝山区上大路",
+    "protein": "素食",
+    "staple": "粉",
+    "flavor": "辣",
+    "price": 20,
+    "scene": [
+      "一个人",
+      "带走"
+    ],
+    "tags": [
+      "土豆粉",
+      "酸辣"
+    ],
+    "reason": "只要土豆粉和蔬菜，酸辣，没有肉。",
+    "source": "大众点评摘录",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f186",
+    "food": "番茄鸡蛋米线",
+    "place": "过桥园米线（锦秋路）",
+    "address": "上海市宝山区锦秋路",
+    "protein": "素食",
+    "staple": "粉",
+    "flavor": "不辣",
+    "price": 20,
+    "scene": [
+      "一个人",
+      "带走"
+    ],
+    "tags": [
+      "番茄鸡蛋",
+      "米线"
+    ],
+    "reason": "番茄鸡蛋下米线，不辣。",
+    "source": "公开攻略摘录",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f187",
+    "food": "麻辣香锅素菜",
+    "place": "川锦汇麻辣拌（上海大学店）",
+    "address": "上海市宝山区聚丰园路",
+    "protein": "素食",
+    "staple": "其他",
+    "flavor": "辣",
+    "price": 24,
+    "scene": [
+      "一个人",
+      "带走"
+    ],
+    "tags": [
+      "麻辣香锅",
+      "素"
+    ],
+    "reason": "全素麻辣香锅，辣，没有主食也可以配米饭另点。",
+    "source": "大众点评摘录",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f188",
+    "food": "蔬菜披萨",
+    "place": "必胜客（经纬汇店）",
+    "address": "上海市宝山区一二八纪念路经纬汇",
+    "protein": "素食",
+    "staple": "汉堡披萨",
+    "flavor": "不辣",
+    "price": 36,
+    "scene": [
+      "一个人",
+      "聚餐"
+    ],
+    "tags": [
+      "蔬菜",
+      "披萨"
+    ],
+    "reason": "时蔬披萨，不辣。",
+    "source": "大众点评摘录",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f189",
+    "food": "小炒黄牛肉饭",
+    "place": "兰湘子（经纬汇店）",
+    "address": "上海市宝山区一二八纪念路经纬汇",
+    "protein": "牛肉",
+    "staple": "米饭",
+    "flavor": "辣",
+    "price": 36,
+    "scene": [
+      "一个人",
+      "聚餐"
+    ],
+    "tags": [
+      "小炒黄牛肉"
+    ],
+    "reason": "湘味小炒黄牛肉盖饭，偏辣。",
+    "source": "大众点评摘录",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f190",
+    "food": "香辣牛肉饭",
+    "place": "乡村基（经纬汇店）",
+    "address": "上海市宝山区一二八纪念路经纬汇",
+    "protein": "牛肉",
+    "staple": "米饭",
+    "flavor": "辣",
+    "price": 28,
+    "scene": [
+      "一个人",
+      "带走"
+    ],
+    "tags": [
+      "香辣牛肉",
+      "盖饭"
+    ],
+    "reason": "香辣牛肉盖饭，一人份能打包。",
+    "source": "大众点评摘录",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f191",
+    "food": "吉野家牛肉饭",
+    "place": "吉野家（大华虎城店）",
+    "address": "上海市宝山区大华路大华虎城",
+    "protein": "牛肉",
+    "staple": "米饭",
+    "flavor": "不辣",
+    "price": 28,
+    "scene": [
+      "一个人",
+      "带走"
+    ],
+    "tags": [
+      "牛丼"
+    ],
+    "reason": "肥牛盖饭，酱汁偏甜不辣。",
+    "source": "大众点评摘录",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f192",
+    "food": "天椒皇堡",
+    "place": "汉堡王（经纬汇）",
+    "address": "上海市宝山区一二八纪念路经纬汇9号楼",
+    "protein": "牛肉",
+    "staple": "汉堡披萨",
+    "flavor": "辣",
+    "price": 32,
+    "scene": [
+      "一个人",
+      "带走"
+    ],
+    "tags": [
+      "天椒",
+      "牛肉堡"
+    ],
+    "reason": "带辣椒酱的牛肉堡，偏辣。",
+    "source": "大众点评摘录",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f193",
+    "food": "阳春米线",
+    "place": "水秀食堂",
+    "address": "上海大学宝山校区水秀食堂",
+    "protein": "素食",
+    "staple": "粉",
+    "flavor": "清淡",
+    "price": 12,
+    "scene": [
+      "一个人",
+      "带走"
+    ],
+    "tags": [
+      "阳春",
+      "米线"
+    ],
+    "reason": "清汤米线，没有浇头，味道淡。",
+    "source": "学校食堂介绍",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f194",
+    "food": "雪菜肉丝面",
+    "place": "本帮面馆（上大路）",
+    "address": "上海市宝山区上大路",
+    "protein": "猪肉",
+    "staple": "面",
+    "flavor": "不辣",
+    "price": 26,
+    "scene": [
+      "一个人"
+    ],
+    "tags": [
+      "雪菜",
+      "肉丝面"
+    ],
+    "reason": "雪菜肉丝拌面或汤面，不辣。",
+    "source": "公开攻略摘录",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f195",
+    "food": "大排面",
+    "place": "本帮面馆（上大路）",
+    "address": "上海市宝山区上大路",
+    "protein": "猪肉",
+    "staple": "面",
+    "flavor": "不辣",
+    "price": 32,
+    "scene": [
+      "一个人"
+    ],
+    "tags": [
+      "大排",
+      "面"
+    ],
+    "reason": "炸大排配汤面，本帮味道，不辣。",
+    "source": "公开攻略摘录",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f196",
+    "food": "虾仁炒河粉",
+    "place": "南区食堂",
+    "address": "上海大学宝山校区南区食堂",
+    "protein": "鱼虾",
+    "staple": "粉",
+    "flavor": "不辣",
+    "price": 22,
+    "scene": [
+      "一个人",
+      "带走"
+    ],
+    "tags": [
+      "虾仁",
+      "炒河粉"
+    ],
+    "reason": "虾仁干炒河粉，不辣。",
+    "source": "学校食堂介绍",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f197",
+    "food": "牛肉炒河粉",
+    "place": "尔美食堂",
+    "address": "上海大学宝山校区尔美食堂",
+    "protein": "牛肉",
+    "staple": "粉",
+    "flavor": "不辣",
+    "price": 22,
+    "scene": [
+      "一个人",
+      "带走"
+    ],
+    "tags": [
+      "牛肉",
+      "炒河粉"
+    ],
+    "reason": "牛肉炒河粉，酱油香，不辣。",
+    "source": "学校食堂介绍",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f198",
+    "food": "咖喱牛肉面",
+    "place": "永和大王（经纬汇店）",
+    "address": "上海市宝山区一二八纪念路经纬汇",
+    "protein": "牛肉",
+    "staple": "面",
+    "flavor": "不辣",
+    "price": 28,
+    "scene": [
+      "一个人",
+      "带走"
+    ],
+    "tags": [
+      "咖喱",
+      "牛肉面"
+    ],
+    "reason": "咖喱牛肉面，不辣，连锁店出餐快。",
+    "source": "大众点评摘录",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f199",
+    "food": "香菇青菜饭",
+    "place": "真功夫（大华虎城店）",
+    "address": "上海市宝山区大华路大华虎城",
+    "protein": "素食",
+    "staple": "米饭",
+    "flavor": "清淡",
+    "price": 22,
+    "scene": [
+      "一个人",
+      "带走"
+    ],
+    "tags": [
+      "香菇",
+      "青菜"
+    ],
+    "reason": "香菇青菜配米饭，味道淡。",
+    "source": "大众点评摘录",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f200",
+    "food": "酸菜鱼面",
+    "place": "鱼你在一起（弘基广场）",
+    "address": "上海市宝山区祁连山路弘基广场",
+    "protein": "鱼虾",
+    "staple": "面",
+    "flavor": "辣",
+    "price": 34,
+    "scene": [
+      "一个人",
+      "带走"
+    ],
+    "tags": [
+      "酸菜鱼",
+      "面"
+    ],
+    "reason": "酸菜鱼下面条，偏辣，一人份。",
+    "source": "大众点评摘录",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f201",
+    "food": "金针菇肥牛米线",
+    "place": "过桥园米线（锦秋路）",
+    "address": "上海市宝山区锦秋路",
+    "protein": "牛肉",
+    "staple": "粉",
+    "flavor": "不辣",
+    "price": 26,
+    "scene": [
+      "一个人",
+      "带走"
+    ],
+    "tags": [
+      "肥牛",
+      "金针菇",
+      "米线"
+    ],
+    "reason": "肥牛和金针菇烫米线，汤不辣。",
+    "source": "公开攻略摘录",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f202",
+    "food": "豉油鸡饭",
+    "place": "泰煌鸡",
+    "address": "上海市宝山区上大路678号",
+    "protein": "鸡肉",
+    "staple": "米饭",
+    "flavor": "不辣",
+    "price": 38,
+    "scene": [
+      "一个人",
+      "带走"
+    ],
+    "tags": [
+      "豉油鸡"
+    ],
+    "reason": "豉油鸡切件配米饭，不辣。",
+    "source": "用户实地整理",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f203",
+    "food": "猪肝面",
+    "place": "水秀食堂面档",
+    "address": "上海大学宝山校区水秀食堂",
+    "protein": "猪肉",
+    "staple": "面",
+    "flavor": "清淡",
+    "price": 16,
+    "scene": [
+      "一个人"
+    ],
+    "tags": [
+      "猪肝",
+      "汤面"
+    ],
+    "reason": "猪肝汤面，味道淡。",
+    "source": "学校食堂介绍",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f204",
+    "food": "咖喱鱼丸粉",
+    "place": "吾馨食堂",
+    "address": "上海大学宝山校区吾馨食堂",
+    "protein": "鱼虾",
+    "staple": "粉",
+    "flavor": "不辣",
+    "price": 18,
+    "scene": [
+      "一个人"
+    ],
+    "tags": [
+      "咖喱",
+      "鱼丸"
+    ],
+    "reason": "咖喱不辣，鱼丸配粉。",
+    "source": "学校食堂介绍",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f205",
+    "food": "香辣鸡面",
+    "place": "遇见小面（上大路）",
+    "address": "上海市宝山区上大路",
+    "protein": "鸡肉",
+    "staple": "面",
+    "flavor": "辣",
+    "price": 24,
+    "scene": [
+      "一个人",
+      "带走"
+    ],
+    "tags": [
+      "香辣鸡",
+      "小面"
+    ],
+    "reason": "鸡丁拌辣面，一个人一碗。",
+    "source": "公开攻略摘录",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f206",
+    "food": "黄焖排骨饭",
+    "place": "杨铭宇黄焖鸡米饭（上大路）",
+    "address": "上海市宝山区上大路",
+    "protein": "猪肉",
+    "staple": "米饭",
+    "flavor": "不辣",
+    "price": 24,
+    "scene": [
+      "一个人",
+      "带走"
+    ],
+    "tags": [
+      "黄焖排骨"
+    ],
+    "reason": "排骨黄焖配米饭，可以选不辣。",
+    "source": "大众点评摘录",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f207",
+    "food": "麻辣香锅肥牛",
+    "place": "川锦汇麻辣拌（上海大学店）",
+    "address": "上海市宝山区聚丰园路",
+    "protein": "牛肉",
+    "staple": "其他",
+    "flavor": "辣",
+    "price": 32,
+    "scene": [
+      "一个人",
+      "带走"
+    ],
+    "tags": [
+      "麻辣香锅",
+      "肥牛"
+    ],
+    "reason": "肥牛麻辣香锅，偏辣，可配米饭。",
+    "source": "大众点评摘录",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f208",
+    "food": "虾仁披萨",
+    "place": "必胜客（经纬汇店）",
+    "address": "上海市宝山区一二八纪念路经纬汇",
+    "protein": "鱼虾",
+    "staple": "汉堡披萨",
+    "flavor": "不辣",
+    "price": 42,
+    "scene": [
+      "一个人",
+      "聚餐"
+    ],
+    "tags": [
+      "虾仁",
+      "披萨"
+    ],
+    "reason": "鲜虾披萨，不辣。",
+    "source": "大众点评摘录",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f209",
+    "food": "照烧鸡腿堡",
+    "place": "华莱士（上大路）",
+    "address": "上海市宝山区上大路",
+    "protein": "鸡肉",
+    "staple": "汉堡披萨",
+    "flavor": "不辣",
+    "price": 12,
+    "scene": [
+      "一个人",
+      "带走"
+    ],
+    "tags": [
+      "照烧",
+      "鸡腿堡"
+    ],
+    "reason": "照烧酱鸡腿堡，不辣，很便宜。",
+    "source": "公开攻略摘录",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f210",
+    "food": "番茄肥牛饭",
+    "place": "乡村基（经纬汇店）",
+    "address": "上海市宝山区一二八纪念路经纬汇",
+    "protein": "牛肉",
+    "staple": "米饭",
+    "flavor": "不辣",
+    "price": 26,
+    "scene": [
+      "一个人",
+      "带走"
+    ],
+    "tags": [
+      "番茄",
+      "肥牛",
+      "盖饭"
+    ],
+    "reason": "番茄肥牛盖饭，酸甜不辣。",
+    "source": "大众点评摘录",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f211",
+    "food": "鱼香肉丝面",
+    "place": "益新食堂",
+    "address": "上海大学宝山校区益新食堂",
+    "protein": "猪肉",
+    "staple": "面",
+    "flavor": "辣",
+    "price": 14,
+    "scene": [
+      "一个人",
+      "带走"
+    ],
+    "tags": [
+      "鱼香肉丝",
+      "拌面"
+    ],
+    "reason": "鱼香肉丝拌面，偏甜辣。",
+    "source": "学校食堂介绍",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f212",
+    "food": "清汤鸡丝粉",
+    "place": "山明食堂",
+    "address": "上海大学宝山校区山明食堂",
+    "protein": "鸡肉",
+    "staple": "粉",
+    "flavor": "清淡",
+    "price": 14,
+    "scene": [
+      "一个人",
+      "带走"
+    ],
+    "tags": [
+      "鸡丝",
+      "清汤粉"
+    ],
+    "reason": "清汤鸡丝粉，味道淡。",
+    "source": "学校食堂介绍",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f213",
+    "food": "鸡肉过桥米线",
+    "place": "过桥米线（水秀食堂）",
+    "address": "上海大学宝山校区水秀食堂",
+    "protein": "鸡肉",
+    "staple": "粉",
+    "flavor": "不辣",
+    "price": 22,
+    "scene": [
+      "一个人",
+      "带走"
+    ],
+    "tags": [
+      "鸡肉",
+      "米线"
+    ],
+    "reason": "鸡肉片烫米线，汤不辣。",
+    "source": "学校食堂介绍",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f214",
+    "food": "叉烧河粉",
+    "place": "尔美食堂",
+    "address": "上海大学宝山校区尔美食堂",
+    "protein": "猪肉",
+    "staple": "粉",
+    "flavor": "不辣",
+    "price": 22,
+    "scene": [
+      "一个人",
+      "带走"
+    ],
+    "tags": [
+      "叉烧",
+      "河粉"
+    ],
+    "reason": "叉烧炒河粉，不辣，能打包。",
+    "source": "学校食堂介绍",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
+  },
+  {
+    "id": "f215",
+    "food": "青菜豆腐面",
+    "place": "南区食堂面档",
+    "address": "上海大学宝山校区南区食堂",
+    "protein": "素食",
+    "staple": "面",
+    "flavor": "清淡",
+    "price": 20,
+    "scene": [
+      "一个人"
+    ],
+    "tags": [
+      "青菜",
+      "豆腐",
+      "面"
+    ],
+    "reason": "青菜豆腐清汤面，味道淡。",
+    "source": "学校食堂介绍",
+    "sourceUrl": "",
+    "addedAt": "2026-10-09",
+    "mentions": 1
   }
 ]
