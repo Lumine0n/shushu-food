@@ -44,6 +44,24 @@ test("鱼虾+面+不辣+20到40+一个人能完整命中，不放宽主食", () 
   assert.deepStrictEqual(r.relaxed, []);
 });
 
+test("鱼虾+粉+不辣+20到40+一个人完整命中", () => {
+  const r = recommend(foods, QUESTIONS, {
+    protein: "鱼虾", staple: "粉", flavor: "不辣", price: "20-40", scene: "一个人"
+  }, { random: first });
+  assert.strictEqual(r.food.protein, "鱼虾");
+  assert.strictEqual(r.food.staple, "粉");
+  assert.deepStrictEqual(r.relaxed, []);
+});
+
+test("素食+米饭+不辣+20到40+一个人完整命中", () => {
+  const r = recommend(foods, QUESTIONS, {
+    protein: "素食", staple: "米饭", flavor: "不辣", price: "20-40", scene: "一个人"
+  }, { random: first });
+  assert.strictEqual(r.food.protein, "素食");
+  assert.strictEqual(r.food.staple, "米饭");
+  assert.deepStrictEqual(r.relaxed, []);
+});
+
 test("“不辣”会命中“清淡”的菜，“辣”不会", () => {
   const food = { flavor: "清淡" };
   assert.strictEqual(matches(food, q("flavor"), "不辣"), true);
