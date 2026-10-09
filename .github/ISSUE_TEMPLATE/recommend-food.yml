@@ -1,0 +1,45 @@
+name: 推荐一道菜
+description: 知道上大周边哪道菜好吃？告诉我们，审核后加进清单。
+title: "[推荐] "
+labels: ["推荐菜"]
+body:
+  - type: input
+    id: food
+    attributes:
+      label: 菜名
+      placeholder: 例如：番茄牛腩饭
+    validations:
+      required: true
+  - type: input
+    id: place
+    attributes:
+      label: 店名和大概位置
+      placeholder: 例如：某某小馆，上大路东门对面
+    validations:
+      required: true
+  - type: dropdown
+    id: protein
+    attributes:
+      label: 主料
+      options: [牛肉, 鸡肉, 猪肉, 鱼虾, 素食, 其他]
+  - type: dropdown
+    id: staple
+    attributes:
+      label: 主食
+      options: [米饭, 面, 粉, 汉堡披萨, 其他]
+  - type: dropdown
+    id: flavor
+    attributes:
+      label: 口味
+      options: [辣, 不辣, 清淡]
+  - type: input
+    id: price
+    attributes:
+      label: 大概多少钱（元）
+  - type: textarea
+    id: reason
+    attributes:
+      label: 为什么推荐
+      placeholder: 好吃在哪？适合一个人吃还是聚餐？
+    validations:
+      required: true
