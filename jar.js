@@ -30,6 +30,15 @@
     return [chars.slice(0, half).join(""), chars.slice(half).join("")];
   }
 
+  // Font tracks radius linearly so a CSS scale() on the ghost matches canvas text.
+  function fontSizeFor(r, label) {
+    var lines = splitLabel(label);
+    var longest = Math.max.apply(null, lines.map(function (l) { return Array.from(l).length; }));
+    var size = Math.min(r * 0.52, (r * 1.45) / Math.max(longest, 1.6));
+    if (lines.length > 1) size = Math.min(size, r * 0.42);
+    return size;
+  }
+
   // cubic-bezier(0.77, 0, 0.175, 1) — on-screen move, from --ease-in-out
   function easeInOut(t) {
     return cubicBezierY(0.77, 0, 0.175, 1, t);
@@ -55,13 +64,27 @@
     return yOf(u);
   }
 
-  function flyDom(from, to, ball) {
-    var el = document.createElement("div");
+  function paintGhost(el, ball, r0) {
     el.className = "flying-ball flying-" + ball.kind;
-    el.style.setProperty("--ball", ball.color);
-    el.style.width = el.style.height = ball.r * 2 + "px";
-    el.textContent = ball.label;
+    el.style.width = el.style.height = r0 * 2 + "px";
+    el.style.fontSize = fontSizeFor(r0, ball.label) + "px";
+    el.style.backgroundColor = ball.kind === "any" ? "#d8d3ca" : shade(ball.color, 36);
+    el.style.backgroundImage = "radial-gradient(ellipse 28% 16% at 36% 32%, rgba(255,255,255,0.22), transparent 70%)";
+    el.innerHTML = "";
+    splitLabel(ball.label).forEach(function (line) {
+      var s = document.createElement("span");
+      s.textContent = line;
+      el.appendChild(s);
+    });
+  }
+
+  // One object: radius (via scale) and type grow on the same ease-in-out.
+  // Handoff only happens after overshoot settles at rEnd / fontSizeFor(rEnd).
+  function flyDom(from, to, ball, rStart, rEnd) {
+    var el = document.createElement("div");
+    paintGhost(el, ball, rStart);
     document.body.appendChild(el);
+    var sEnd = rEnd / rStart;
     var lift = Math.min(132, Math.max(64, Math.abs(to.y - from.y) * 0.42 + 48));
     var peak = Math.min(from.y, to.y) - lift;
     var frames = [];
@@ -71,13 +94,15 @@
       var t = easeInOut(raw);
       var x = from.x + (to.x - from.x) * t;
       var y = (1 - t) * (1 - t) * from.y + 2 * (1 - t) * t * peak + t * t * to.y;
+      var s = 1 + (sEnd - 1) * t;
       frames.push({
-        transform: "translate(" + (x - ball.r) + "px," + (y - ball.r) + "px) scale(1)",
+        transform: "translate(" + (x - rStart) + "px," + (y - rStart) + "px) scale(" + s + ")",
         opacity: "1"
       });
     }
-    var landX = to.x - ball.r;
-    var landY = to.y - ball.r;
+    function at(s, dy) {
+      return "translate(" + (to.x - rStart) + "px," + (to.y - rStart + (dy || 0)) + "px) scale(" + s + ")";
+    }
     return el.animate(frames, {
       duration: 520,
       easing: "linear",
@@ -85,12 +110,12 @@
     }).finished.then(function () {
       return el.animate(
         [
-          { transform: "translate(" + landX + "px," + landY + "px) scale(1)" },
-          { transform: "translate(" + landX + "px," + (landY + 5) + "px) scale(1.08, 0.86)" },
-          { transform: "translate(" + landX + "px," + (landY - 1) + "px) scale(0.97, 1.04)" },
-          { transform: "translate(" + landX + "px," + landY + "px) scale(1)" }
+          { transform: at(sEnd, 0) },
+          { transform: at(sEnd * 1.07, 3) },
+          { transform: at(sEnd * 0.98, 0) },
+          { transform: at(sEnd, 0) }
         ],
-        { duration: 180, easing: "cubic-bezier(0.23, 1, 0.32, 1)", fill: "forwards" }
+        { duration: 200, easing: "cubic-bezier(0.23, 1, 0.32, 1)", fill: "forwards" }
       ).finished;
     }).then(function () { return el; }, function () {
       if (el.parentNode) el.remove();
@@ -155,12 +180,13 @@
       walls.forEach(function (w) { M.Composite.remove(world, w); });
       var t = 60;
       var opt = { isStatic: true, friction: 0.3, restitution: 0.4 };
+      // Inset past the drawn stroke so a ball cannot rest half-outside the rim.
       walls = [
-        M.Bodies.rectangle(jar.x - t / 2 + 4, jar.y + jh / 2 - 40, t, jh + 80, opt),
-        M.Bodies.rectangle(jar.x + jw + t / 2 - 4, jar.y + jh / 2 - 40, t, jh + 80, opt),
+        M.Bodies.rectangle(jar.x - t / 2 + 10, jar.y + jh / 2 - 40, t, jh + 80, opt),
+        M.Bodies.rectangle(jar.x + jw + t / 2 - 10, jar.y + jh / 2 - 40, t, jh + 80, opt),
         M.Bodies.rectangle(W / 2, jar.y + jh + t / 2 - 4, jw + t * 2, t, opt),
-        M.Bodies.rectangle(jar.x + 10, jar.y + jh - 10, 40, 40, Object.assign({ angle: Math.PI / 4 }, opt)),
-        M.Bodies.rectangle(jar.x + jw - 10, jar.y + jh - 10, 40, 40, Object.assign({ angle: Math.PI / 4 }, opt))
+        M.Bodies.rectangle(jar.x + 14, jar.y + jh - 10, 40, 40, Object.assign({ angle: Math.PI / 4 }, opt)),
+        M.Bodies.rectangle(jar.x + jw - 14, jar.y + jh - 10, 40, 40, Object.assign({ angle: Math.PI / 4 }, opt))
       ];
       M.Composite.add(world, walls);
 
@@ -231,9 +257,7 @@
 
       ctx.rotate(-b.body.angle);
       var lines = splitLabel(b.label);
-      var longest = Math.max.apply(null, lines.map(function (l) { return Array.from(l).length; }));
-      var size = Math.min(r * 0.52, (r * 1.45) / Math.max(longest, 1.6));
-      if (lines.length > 1) size = Math.min(size, r * 0.42);
+      var size = fontSizeFor(r, b.label);
       ctx.font = "600 " + size + "px " + FONT;
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
@@ -299,12 +323,17 @@
     return {
       addBall: function (spec) {
         var r = ballRadius(spec.label);
+        var rStart = Math.max(20, Math.round(r * 0.62));
         var ball = { id: spec.id, label: spec.label, color: spec.color, kind: spec.kind || "normal", r: r, alpha: 1 };
         var rect = canvas.getBoundingClientRect();
-        var targetX = jar.x + jar.w / 2 + (Math.random() - 0.5) * jar.w * 0.4;
-        var targetY = jar.y + r * 0.2;
+        var pad = r + 14;
+        var innerL = jar.x + pad;
+        var innerR = jar.x + jar.w - pad;
+        var targetX = Math.max(innerL, Math.min(innerR, jar.x + jar.w / 2 + (Math.random() - 0.5) * (innerR - innerL) * 0.6));
+        // Whole sphere below the rim — never spawn sitting on the lip.
+        var targetY = jar.y + r + 16;
         var fly = (!reduceMotion && spec.from)
-          ? flyDom(spec.from, { x: rect.left + targetX, y: rect.top + targetY }, ball)
+          ? flyDom(spec.from, { x: rect.left + targetX, y: rect.top + targetY }, ball, rStart, r)
           : Promise.resolve(null);
         return fly.then(function (ghost) {
           if (cancelled[spec.id]) {
@@ -313,20 +342,22 @@
             return;
           }
           ball.body = M.Bodies.circle(targetX, reduceMotion ? jar.y + jar.h - r * 2 : targetY, r, {
-            restitution: reduceMotion ? 0.04 : 0.16,
-            friction: 0.14,
-            frictionAir: 0.025,
+            restitution: reduceMotion ? 0.04 : 0.12,
+            friction: 0.16,
+            frictionAir: 0.03,
             density: 0.002,
             plugin: { ballId: spec.id }
           });
-          M.Body.setVelocity(ball.body, { x: (Math.random() - 0.5) * 0.6, y: reduceMotion ? 0 : 2.2 });
-          M.Body.setAngularVelocity(ball.body, (Math.random() - 0.5) * 0.05);
+          M.Body.setVelocity(ball.body, { x: (Math.random() - 0.5) * 0.5, y: reduceMotion ? 0 : 2.8 });
+          M.Body.setAngularVelocity(ball.body, (Math.random() - 0.5) * 0.04);
           if (reduceMotion) ball.alpha = 0;
           var old = balls.get(spec.id);
           if (old) removeNow(old);
           balls.set(spec.id, ball);
           M.Composite.add(world, ball.body);
-          if (ghost) ghost.remove();
+          if (ghost) {
+            requestAnimationFrame(function () { ghost.remove(); });
+          }
           if (reduceMotion) fadeTo(ball, 1, 220);
         });
       },

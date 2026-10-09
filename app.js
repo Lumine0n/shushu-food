@@ -323,7 +323,7 @@
     }
   });
 
-  fetch("data/foods.json?v=20261009f")
+  fetch("data/foods.json?v=20261009g")
     .then(function (res) { if (!res.ok) throw new Error(res.status); return res.json(); })
     .then(function (foods) {
       state.foods = foods;
