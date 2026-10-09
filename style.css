@@ -169,9 +169,7 @@ a, [role="button"] {
   background: var(--paper);
   font-size: 15px;
   font-weight: 500;
-  opacity: 0;
-  transform: translateY(8px);
-  animation: pillIn 220ms var(--ease-out) forwards;
+  animation: pillIn 220ms var(--ease-out);
   transition: transform 140ms var(--ease-out), background 160ms var(--ease-out), border-color 160ms var(--ease-out), color 160ms var(--ease-out);
 }
 .pill:nth-child(1) { animation-delay: 0ms; }
@@ -182,6 +180,7 @@ a, [role="button"] {
 .pill:nth-child(6) { animation-delay: 200ms; }
 .pill:nth-child(7) { animation-delay: 240ms; }
 @keyframes pillIn {
+  from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: translateY(0); }
 }
 .pill:active { transform: scale(0.97); }
