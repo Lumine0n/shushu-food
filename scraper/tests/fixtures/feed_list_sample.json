@@ -1,0 +1,71 @@
+{
+  "data": {
+    "feedList": [
+      {
+        "tpl": 1,
+        "sourceFeed": {
+          "feedId": "9000000000000000001",
+          "content": "强烈推荐泰煌鸡的白斩鸡，蘸料绝了，38块一个人吃很满足[捂脸]",
+          "score": 1791515911041,
+          "commentCount": 2,
+          "boardId": "1288219670771609088",
+          "userName": "不应被保存的昵称",
+          "userId": "123456789",
+          "avatar": "https://example.com/avatar.png"
+        }
+      },
+      {
+        "tpl": 1,
+        "sourceFeed": {
+          "feedId": "9000000000000000002",
+          "content": "避雷水秀一楼烧腊，线上点的叉烧饭份量锐减，太贵了",
+          "score": 1791515059643,
+          "commentCount": 4,
+          "boardId": "1288219670771609088",
+          "userName": "另一个昵称",
+          "userId": "987654321"
+        }
+      },
+      {
+        "tpl": 1,
+        "sourceFeed": {
+          "feedId": "9000000000000000003",
+          "content": "宝山附近有啥好吃不烧心的猪脚饭嘛",
+          "score": 1791475034246,
+          "commentCount": 5,
+          "boardId": "1288219670771609088"
+        }
+      },
+      {
+        "tpl": 1,
+        "sourceFeed": {
+          "feedId": "9000000000000000004",
+          "content": "宝山校区收吹风机，联系 13812345678",
+          "score": 1791512280948,
+          "commentCount": 0,
+          "boardId": "1288219670771609088"
+        }
+      },
+      {
+        "tpl": 1,
+        "sourceFeed": {
+          "feedId": "9000000000000000005",
+          "content": "Fan土耳其烤肉饭真的管饱，13元打包回寝室，每次都排队",
+          "score": 1791480422171,
+          "commentCount": 1,
+          "boardId": "1288219670771609088"
+        }
+      },
+      {
+        "tpl": 1,
+        "sourceFeed": {
+          "feedId": "9000000000000000006",
+          "content": "置顶：本板块发帖规则",
+          "score": 1791400000000,
+          "isTopFeed": true
+        }
+      }
+    ],
+    "pageInfo": { "hasMore": true, "score": -1791475034246, "infoCount": 6 }
+  }
+}
