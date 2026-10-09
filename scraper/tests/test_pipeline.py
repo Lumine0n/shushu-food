@@ -151,11 +151,15 @@ class ReviewMergeTest(unittest.TestCase):
         self.assertIn("价格必须是大于等于 0 的数字", review.validation_errors(incomplete))
 
     def test_merges_with_current_web_foods_and_keeps_f_id_format(self):
-        """新版清单使用 f001…f018；审核脚本应接着生成 f019，而不是旧版 food-019。"""
+        """新版清单使用 f001… 编号；审核脚本应接着现有最大编号生成下一条。"""
         foods_path = SCRAPER.parent / "data" / "foods.json"
         foods, wrapper = review.load_foods(foods_path)
         self.assertIsNone(wrapper)
-        self.assertEqual((len(foods), foods[-1]["id"], review.next_id(foods)), (18, "f018", "f019"))
+        last_id = foods[-1]["id"]
+        nxt = review.next_id(foods)
+        self.assertTrue(last_id.startswith("f"))
+        self.assertTrue(nxt.startswith("f"))
+        self.assertGreater(int(nxt[1:]), int(last_id[1:]))
 
         copied = [dict(item) for item in foods]
         valid = self.entry(
@@ -165,7 +169,7 @@ class ReviewMergeTest(unittest.TestCase):
         )
         self.assertEqual(review.validation_errors(valid), [])
         result, new = review.merge_food(copied, valid)
-        self.assertEqual((result, new["id"], len(copied)), ("added", "f019", 19))
+        self.assertEqual((result, new["id"], len(copied)), ("added", nxt, len(foods) + 1))
         self.assertEqual(list(new.keys()), review.FOOD_FIELDS)
 
 

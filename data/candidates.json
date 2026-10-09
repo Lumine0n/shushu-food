@@ -2,7 +2,7 @@
   {
     "candidateId": "1484273481410623360",
     "postId": "1484273481410623360",
-    "status": "pending",
+    "status": "approved",
     "sentiment": "positive",
     "kind": "review",
     "confidence": 0.6,
@@ -22,12 +22,13 @@
     "source": "狐友·上海大学圈/鼠鼠吃饭",
     "sourceUrl": "https://w.sohu.com/circle/826522127825056896?feedDetail=1484273481410623360",
     "publishedAt": "2026-10-09T13:12+08:00",
-    "extractedAt": "2026-10-09T08:56:58+00:00"
+    "extractedAt": "2026-10-09T08:56:58+00:00",
+    "foodId": "f019"
   },
   {
     "candidateId": "1484253358318630016",
     "postId": "1484253358318630016",
-    "status": "pending",
+    "status": "rejected",
     "sentiment": "neutral",
     "kind": "mention",
     "confidence": 0.55,
@@ -54,7 +55,7 @@
   {
     "candidateId": "1484241145541375488",
     "postId": "1484241145541375488",
-    "status": "pending",
+    "status": "rejected",
     "sentiment": "negative",
     "kind": "review",
     "confidence": 0.7,
@@ -80,7 +81,7 @@
   {
     "candidateId": "1484073266850248704",
     "postId": "1484073266850248704",
-    "status": "pending",
+    "status": "rejected",
     "sentiment": "neutral",
     "kind": "question",
     "confidence": 0.3,
@@ -105,7 +106,7 @@
   {
     "candidateId": "1484025172754380928",
     "postId": "1484025172754380928",
-    "status": "pending",
+    "status": "rejected",
     "sentiment": "positive",
     "kind": "review",
     "confidence": 0.65,
@@ -128,7 +129,7 @@
   {
     "candidateId": "1483969931426084736",
     "postId": "1483969931426084736",
-    "status": "pending",
+    "status": "rejected",
     "sentiment": "neutral",
     "kind": "mention",
     "confidence": 0.35,
@@ -151,7 +152,7 @@
   {
     "candidateId": "1480456847642277632",
     "postId": "1480456847642277632",
-    "status": "pending",
+    "status": "rejected",
     "sentiment": "negative",
     "kind": "review",
     "confidence": 0.7,
@@ -177,7 +178,7 @@
   {
     "candidateId": "1479331289202112384",
     "postId": "1479331289202112384",
-    "status": "pending",
+    "status": "rejected",
     "sentiment": "negative",
     "kind": "review",
     "confidence": 0.3,
@@ -202,7 +203,7 @@
   {
     "candidateId": "1476676314407842048",
     "postId": "1476676314407842048",
-    "status": "pending",
+    "status": "rejected",
     "sentiment": "negative",
     "kind": "review",
     "confidence": 0.7,
@@ -231,7 +232,7 @@
   {
     "candidateId": "1473471094064360448",
     "postId": "1473471094064360448",
-    "status": "pending",
+    "status": "rejected",
     "sentiment": "negative",
     "kind": "review",
     "confidence": 0.55,
@@ -260,7 +261,7 @@
   {
     "candidateId": "1468422227186886656",
     "postId": "1468422227186886656",
-    "status": "pending",
+    "status": "rejected",
     "sentiment": "negative",
     "kind": "review",
     "confidence": 0.3,
@@ -285,7 +286,7 @@
   {
     "candidateId": "1444451964086847104",
     "postId": "1444451964086847104",
-    "status": "pending",
+    "status": "rejected",
     "sentiment": "positive",
     "kind": "review",
     "confidence": 0.3,
@@ -329,5 +330,112 @@
     "sourceUrl": "https://w.sohu.com/circle/826522127825056896?feedDetail=1438337994523346432",
     "publishedAt": "2026-06-04T19:01+08:00",
     "extractedAt": "2026-10-09T08:56:58+00:00"
+  },
+  {
+    "candidateId": "1484355536651761024",
+    "postId": "1484355536651761024",
+    "status": "rejected",
+    "sentiment": "negative",
+    "kind": "review",
+    "confidence": 0.3,
+    "food": "",
+    "place": "",
+    "address": "",
+    "protein": "鸡肉",
+    "staple": "",
+    "flavor": "辣",
+    "price": null,
+    "scene": [],
+    "tags": [
+      "negative"
+    ],
+    "reason": "上嘉的kfc怎么那么难吃 香辣鸡腿堡没有酱 太干了吧。。",
+    "excerpt": "上嘉的kfc怎么那么难吃 香辣鸡腿堡没有酱 太干了吧。。",
+    "source": "狐友·上海大学圈/鼠鼠吃饭",
+    "sourceUrl": "https://w.sohu.com/circle/826522127825056896?feedDetail=1484355536651761024",
+    "publishedAt": "2026-10-09T18:38+08:00",
+    "extractedAt": "2026-10-09T10:41:03+00:00"
+  },
+  {
+    "candidateId": "1432931619399992448",
+    "postId": "1432931619399992448",
+    "status": "rejected",
+    "sentiment": "negative",
+    "kind": "review",
+    "confidence": 0.3,
+    "food": "",
+    "place": "",
+    "address": "",
+    "protein": "",
+    "staple": "米饭",
+    "flavor": "",
+    "price": null,
+    "scene": [
+      "聚餐"
+    ],
+    "tags": [
+      "聚餐",
+      "negative"
+    ],
+    "reason": "‼️蜀椒老汉壁垒…我再也不会来了…曾经有段时间非常爱吃，几乎天天都来的程度，今天想带男朋友一起来吃，结果刚吃两口吃到一只",
+    "excerpt": "‼️蜀椒老汉壁垒…我再也不会来了…曾经有段时间非常爱吃，几乎天天都来的程度，今天想带男朋友一起来吃，结果刚吃两口吃到一只雷霆大虫🤮🤮🤮然后阿姨就开始卖惨说这种虫子就是很难洗掉，本人也不想扯皮，只拿了了饭前就走人了。后面一搜发现是海蟑螂，而且",
+    "source": "狐友·上海大学圈/校外商户排雷",
+    "sourceUrl": "https://w.sohu.com/circle/826522127825056896?feedDetail=1432931619399992448",
+    "publishedAt": "2026-05-20T20:58+08:00",
+    "extractedAt": "2026-10-09T10:41:03+00:00"
+  },
+  {
+    "candidateId": "1431826282102064384",
+    "postId": "1431826282102064384",
+    "status": "rejected",
+    "sentiment": "negative",
+    "kind": "review",
+    "confidence": 0.9,
+    "food": "火锅",
+    "place": "肯德基",
+    "address": "",
+    "protein": "鸡肉",
+    "staple": "",
+    "flavor": "辣",
+    "price": null,
+    "scene": [
+      "聚餐"
+    ],
+    "tags": [
+      "火锅",
+      "聚餐",
+      "negative"
+    ],
+    "reason": "肯德基新品纸包鸡难吃的要死，感觉就是随便挖了勺便宜火锅底料腌的",
+    "excerpt": "肯德基新品纸包鸡难吃的要死，感觉就是随便挖了勺便宜火锅底料腌的",
+    "source": "狐友·上海大学圈/校外商户排雷",
+    "sourceUrl": "https://w.sohu.com/circle/826522127825056896?feedDetail=1431826282102064384",
+    "publishedAt": "2026-05-17T19:46+08:00",
+    "extractedAt": "2026-10-09T10:41:03+00:00"
+  },
+  {
+    "candidateId": "1430013589061843584",
+    "postId": "1430013589061843584",
+    "status": "rejected",
+    "sentiment": "negative",
+    "kind": "review",
+    "confidence": 0.45,
+    "food": "",
+    "place": "弘基广场",
+    "address": "",
+    "protein": "",
+    "staple": "",
+    "flavor": "",
+    "price": null,
+    "scene": [],
+    "tags": [
+      "negative"
+    ],
+    "reason": "宏基广场茉莉奶白门口那家水果摊狠狠避雷，上次买的草莓底下全烂的，这次买的西瓜果切也变味了，吃完肚子就难受！！！",
+    "excerpt": "宏基广场茉莉奶白门口那家水果摊狠狠避雷，上次买的草莓底下全烂的，这次买的西瓜果切也变味了，吃完肚子就难受！！！",
+    "source": "狐友·上海大学圈/校外商户排雷",
+    "sourceUrl": "https://w.sohu.com/circle/826522127825056896?feedDetail=1430013589061843584",
+    "publishedAt": "2026-05-12T19:43+08:00",
+    "extractedAt": "2026-10-09T10:41:03+00:00"
   }
 ]

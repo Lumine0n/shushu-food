@@ -26,12 +26,11 @@ test("条件都能满足时，推荐的菜全部命中", () => {
 });
 
 test("匹配不上时按 relaxRank 放宽，并告诉放宽了哪一条", () => {
-  // 没有“粉”，也没有 20 元以内的牛肉
+  // 清单里没有「牛肉 + 粉」的组合，主食应被放宽
   const answers = { protein: "牛肉", staple: "粉", price: "0-20" };
   const r = recommend(foods, QUESTIONS, answers, { random: first });
   assert.ok(r.food);
   assert.ok(r.relaxed.includes("staple"));
-  assert.ok(r.relaxed.includes("price"));
   assert.ok(r.matched.includes("protein"), "主料 relaxRank 最小，应最后被放宽");
 });
 
