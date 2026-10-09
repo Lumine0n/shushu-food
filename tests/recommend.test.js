@@ -26,49 +26,11 @@ test("条件都能满足时，推荐的菜全部命中", () => {
 });
 
 test("匹配不上时按 relaxRank 放宽，并告诉放宽了哪一条", () => {
-  // 清单里没有「素食 + 汉堡披萨 + 辣 + 20 元以内」，主食或预算应被放宽
   const answers = { protein: "素食", staple: "汉堡披萨", flavor: "辣", price: "0-20" };
   const r = recommend(foods, QUESTIONS, answers, { random: first });
   assert.ok(r.food);
   assert.ok(r.relaxed.length > 0);
   assert.ok(r.matched.includes("protein"), "主料 relaxRank 最小，应最后被放宽");
-});
-
-test("鱼虾+面+不辣+20到40+一个人能完整命中，不放宽主食", () => {
-  const answers = { protein: "鱼虾", staple: "面", flavor: "不辣", price: "20-40", scene: "一个人" };
-  const r = recommend(foods, QUESTIONS, answers, { random: first });
-  assert.ok(r.food);
-  assert.strictEqual(r.food.protein, "鱼虾");
-  assert.strictEqual(r.food.staple, "面");
-  assert.ok(!r.relaxed.includes("staple"));
-  assert.deepStrictEqual(r.relaxed, []);
-});
-
-test("牛肉+面+不辣+20到40+一个人完整命中，不放宽主食", () => {
-  const r = recommend(foods, QUESTIONS, {
-    protein: "牛肉", staple: "面", flavor: "不辣", price: "20-40", scene: "一个人"
-  }, { random: first });
-  assert.strictEqual(r.food.protein, "牛肉");
-  assert.strictEqual(r.food.staple, "面");
-  assert.deepStrictEqual(r.relaxed, []);
-});
-
-test("鱼虾+粉+不辣+20到40+一个人完整命中", () => {
-  const r = recommend(foods, QUESTIONS, {
-    protein: "鱼虾", staple: "粉", flavor: "不辣", price: "20-40", scene: "一个人"
-  }, { random: first });
-  assert.strictEqual(r.food.protein, "鱼虾");
-  assert.strictEqual(r.food.staple, "粉");
-  assert.deepStrictEqual(r.relaxed, []);
-});
-
-test("素食+米饭+不辣+20到40+一个人完整命中", () => {
-  const r = recommend(foods, QUESTIONS, {
-    protein: "素食", staple: "米饭", flavor: "不辣", price: "20-40", scene: "一个人"
-  }, { random: first });
-  assert.strictEqual(r.food.protein, "素食");
-  assert.strictEqual(r.food.staple, "米饭");
-  assert.deepStrictEqual(r.relaxed, []);
 });
 
 test("“不辣”会命中“清淡”的菜，“辣”不会", () => {
@@ -114,4 +76,13 @@ test("foods.json 每条都有必填字段且取值在词表里", () => {
     assert.ok(Array.isArray(f.scene) && Array.isArray(f.tags));
   }
   assert.strictEqual(new Set(foods.map((f) => f.id)).size, foods.length, "id 不能重复");
+});
+
+test("清单不含核实不存在或超出范围的店", () => {
+  const banned = /马子禄|陈香贵|共康路|大华虎城|味千拉面|永和大王|乡村基|巡湘记|吉久田|大森|鱼你在一起|萨莉亚|老娘舅|老乡鸡|真功夫|吉野家/;
+  for (const f of foods) {
+    assert.ok(!banned.test(f.place + f.address), f.place);
+  }
+  assert.ok(foods.length < 215, "审核后清单应少于扩容后的 215 道");
+  assert.ok(foods.length >= 40, "审核后仍应保留可核验的食堂与周边店");
 });

@@ -79,8 +79,7 @@
         if (o.value === ANY) b.classList.add("pill-any");
         if (o.value === OTHER) b.classList.add("pill-other");
         if (state.answers[q.id] === o.value) b.classList.add("picked");
-        b.appendChild(el("span", "pill-icon", o.icon || ""));
-        b.appendChild(el("span", "", o.label));
+        b.textContent = o.label;
         b.onclick = function () { pick(q, o, b); };
         grid.appendChild(b);
       });
@@ -243,7 +242,7 @@
       var v = state.answers[q.id];
       if (v === undefined || v === ANY || v === OTHER) return;
       var hit = r.matched.indexOf(q.id) !== -1;
-      var c = el("span", "chip " + (hit ? "chip-hit" : "chip-miss"), (hit ? "✓ " : "≈ ") + optionOf(q, v).label);
+      var c = el("span", "chip " + (hit ? "chip-hit" : "chip-miss"), optionOf(q, v).label);
       c.style.setProperty("--c", q.color);
       chips.appendChild(c);
     });
@@ -324,7 +323,7 @@
     }
   });
 
-  fetch("data/foods.json?v=20261009c")
+  fetch("data/foods.json?v=20261009f")
     .then(function (res) { if (!res.ok) throw new Error(res.status); return res.json(); })
     .then(function (foods) {
       state.foods = foods;

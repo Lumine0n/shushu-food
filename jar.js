@@ -11,7 +11,7 @@
  */
 (function (root) {
   var reduceMotion = root.matchMedia && root.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var FONT = '-apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", "Microsoft YaHei", system-ui, sans-serif';
+  var FONT = '"Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", sans-serif';
 
   function wait(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
 
@@ -30,6 +30,31 @@
     return [chars.slice(0, half).join(""), chars.slice(half).join("")];
   }
 
+  // cubic-bezier(0.77, 0, 0.175, 1) — on-screen move, from --ease-in-out
+  function easeInOut(t) {
+    return cubicBezierY(0.77, 0, 0.175, 1, t);
+  }
+
+  function cubicBezierY(p1x, p1y, p2x, p2y, t) {
+    var ax = 3 * p1x - 3 * p2x + 1;
+    var bx = 3 * p2x - 6 * p1x;
+    var cx = 3 * p1x;
+    var ay = 3 * p1y - 3 * p2y + 1;
+    var by = 3 * p2y - 6 * p1y;
+    var cy = 3 * p1y;
+    function xOf(u) { return ((ax * u + bx) * u + cx) * u; }
+    function dxOf(u) { return (3 * ax * u + 2 * bx) * u + cx; }
+    function yOf(u) { return ((ay * u + by) * u + cy) * u; }
+    var u = t;
+    for (var i = 0; i < 8; i++) {
+      var x = xOf(u) - t;
+      var d = dxOf(u);
+      if (Math.abs(x) < 1e-5 || Math.abs(d) < 1e-6) break;
+      u = Math.max(0, Math.min(1, u - x / d));
+    }
+    return yOf(u);
+  }
+
   function flyDom(from, to, ball) {
     var el = document.createElement("div");
     el.className = "flying-ball flying-" + ball.kind;
@@ -37,20 +62,40 @@
     el.style.width = el.style.height = ball.r * 2 + "px";
     el.textContent = ball.label;
     document.body.appendChild(el);
+    var lift = Math.min(132, Math.max(64, Math.abs(to.y - from.y) * 0.42 + 48));
+    var peak = Math.min(from.y, to.y) - lift;
     var frames = [];
-    var peak = Math.min(from.y, to.y) - 90;
-    for (var i = 0; i <= 14; i++) {
-      var t = i / 14;
+    var steps = 32;
+    for (var i = 0; i <= steps; i++) {
+      var raw = i / steps;
+      var t = easeInOut(raw);
       var x = from.x + (to.x - from.x) * t;
       var y = (1 - t) * (1 - t) * from.y + 2 * (1 - t) * t * peak + t * t * to.y;
-      var s = 0.95 + 0.05 * t;
       frames.push({
-        transform: "translate(" + (x - ball.r) + "px," + (y - ball.r) + "px) scale(" + s + ")",
-        opacity: String(0.75 + 0.25 * t)
+        transform: "translate(" + (x - ball.r) + "px," + (y - ball.r) + "px) scale(1)",
+        opacity: "1"
       });
     }
-    var anim = el.animate(frames, { duration: 420, easing: "cubic-bezier(0.23, 1, 0.32, 1)" });
-    return anim.finished.then(function () { el.remove(); }, function () { el.remove(); });
+    var landX = to.x - ball.r;
+    var landY = to.y - ball.r;
+    return el.animate(frames, {
+      duration: 520,
+      easing: "linear",
+      fill: "forwards"
+    }).finished.then(function () {
+      return el.animate(
+        [
+          { transform: "translate(" + landX + "px," + landY + "px) scale(1)" },
+          { transform: "translate(" + landX + "px," + (landY + 5) + "px) scale(1.08, 0.86)" },
+          { transform: "translate(" + landX + "px," + (landY - 1) + "px) scale(0.97, 1.04)" },
+          { transform: "translate(" + landX + "px," + landY + "px) scale(1)" }
+        ],
+        { duration: 180, easing: "cubic-bezier(0.23, 1, 0.32, 1)", fill: "forwards" }
+      ).finished;
+    }).then(function () { return el; }, function () {
+      if (el.parentNode) el.remove();
+      return null;
+    });
   }
 
   function createFallback(canvas, opts) {
@@ -131,11 +176,7 @@
       var j = jar;
       ctx.save();
       roundJar(j);
-      var g = ctx.createLinearGradient(j.x, 0, j.x + j.w, 0);
-      g.addColorStop(0, "rgba(255,255,255,0.42)");
-      g.addColorStop(0.5, "rgba(255,255,255,0.18)");
-      g.addColorStop(1, "rgba(255,255,255,0.36)");
-      ctx.fillStyle = g;
+      ctx.fillStyle = "rgba(250, 248, 245, 0.32)";
       ctx.fill();
       ctx.restore();
     }
@@ -144,20 +185,14 @@
       var j = jar;
       ctx.save();
       roundJar(j);
-      ctx.lineWidth = 1.5;
-      ctx.strokeStyle = "rgba(28, 25, 23, 0.18)";
+      ctx.lineWidth = 1.25;
+      ctx.strokeStyle = "rgba(26, 25, 22, 0.28)";
       ctx.stroke();
       ctx.beginPath();
-      ctx.lineCap = "round";
-      ctx.lineWidth = 3;
-      ctx.strokeStyle = "rgba(255,255,255,0.55)";
-      ctx.moveTo(j.x + 18, j.y + 32);
-      ctx.lineTo(j.x + 18, j.y + j.h * 0.5);
+      ctx.roundRect(j.x - 6, j.y - 5, j.w + 12, 8, 2);
+      ctx.strokeStyle = "rgba(26, 25, 22, 0.4)";
+      ctx.lineWidth = 1.25;
       ctx.stroke();
-      ctx.fillStyle = "#44403c";
-      ctx.beginPath();
-      ctx.roundRect(j.x - 6, j.y - 6, j.w + 12, 10, 5);
-      ctx.fill();
       ctx.restore();
     }
 
@@ -180,16 +215,9 @@
       ctx.beginPath();
       ctx.arc(0, 0, r, 0, Math.PI * 2);
       if (b.kind === "any") {
-        var cg = ctx.createConicGradient ? ctx.createConicGradient(0, 0, 0) : null;
-        if (cg) {
-          ["#f4a89a", "#ead58a", "#9fd4cc", "#a8c4e8", "#b9b3e6", "#f4a89a"].forEach(function (c, i) {
-            cg.addColorStop(i / 5, c);
-          });
-        }
-        ctx.globalAlpha = b.alpha * 0.9;
-        ctx.fillStyle = cg || "#ead58a";
+        ctx.fillStyle = "#d8d3ca";
       } else {
-        ctx.fillStyle = shade(b.color, 28);
+        ctx.fillStyle = shade(b.color, 36);
       }
       ctx.fill();
       ctx.globalAlpha = b.alpha;
@@ -197,8 +225,8 @@
       ctx.strokeStyle = "rgba(28, 25, 23, 0.18)";
       ctx.stroke();
       ctx.beginPath();
-      ctx.fillStyle = "rgba(255,255,255,0.35)";
-      ctx.ellipse(-r * 0.32, -r * 0.38, r * 0.18, r * 0.1, -0.5, 0, Math.PI * 2);
+      ctx.fillStyle = "rgba(255,255,255,0.22)";
+      ctx.ellipse(-r * 0.28, -r * 0.34, r * 0.14, r * 0.08, -0.5, 0, Math.PI * 2);
       ctx.fill();
 
       ctx.rotate(-b.body.angle);
@@ -277,24 +305,29 @@
         var targetY = jar.y + r * 0.2;
         var fly = (!reduceMotion && spec.from)
           ? flyDom(spec.from, { x: rect.left + targetX, y: rect.top + targetY }, ball)
-          : Promise.resolve();
-        return fly.then(function () {
-          if (cancelled[spec.id]) { delete cancelled[spec.id]; return; }
+          : Promise.resolve(null);
+        return fly.then(function (ghost) {
+          if (cancelled[spec.id]) {
+            delete cancelled[spec.id];
+            if (ghost) ghost.remove();
+            return;
+          }
           ball.body = M.Bodies.circle(targetX, reduceMotion ? jar.y + jar.h - r * 2 : targetY, r, {
-            restitution: reduceMotion ? 0.05 : 0.55,
-            friction: 0.05,
-            frictionAir: 0.01,
+            restitution: reduceMotion ? 0.04 : 0.16,
+            friction: 0.14,
+            frictionAir: 0.025,
             density: 0.002,
             plugin: { ballId: spec.id }
           });
-          M.Body.setVelocity(ball.body, { x: (Math.random() - 0.5) * 3, y: reduceMotion ? 0 : 6 });
-          M.Body.setAngularVelocity(ball.body, (Math.random() - 0.5) * 0.2);
+          M.Body.setVelocity(ball.body, { x: (Math.random() - 0.5) * 0.6, y: reduceMotion ? 0 : 2.2 });
+          M.Body.setAngularVelocity(ball.body, (Math.random() - 0.5) * 0.05);
           if (reduceMotion) ball.alpha = 0;
           var old = balls.get(spec.id);
           if (old) removeNow(old);
           balls.set(spec.id, ball);
           M.Composite.add(world, ball.body);
-          if (reduceMotion) fadeTo(ball, 1, 300);
+          if (ghost) ghost.remove();
+          if (reduceMotion) fadeTo(ball, 1, 220);
         });
       },
       removeBall: function (id) {

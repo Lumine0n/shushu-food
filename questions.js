@@ -12,7 +12,6 @@
  *     label  显示的文字
  *     value  和 foods.json 里的值比较
  *     short  （可选）写在小球上的短文字，不填就用 label
- *     icon   按钮上的小图标
  *     match  （可选）特殊比较方式：
  *              { not: "辣" }        字段不等于“辣”就算命中
  *              { min: 20, max: 40 } 数字在这个范围内（含 min，不含 max）
@@ -25,14 +24,14 @@ var QUESTIONS = [
     name: "主料",
     field: "protein",
     title: "今天想吃点什么肉？",
-    color: "#FF8A3D",
+    color: "#A66B45",
     relaxRank: 1,
     options: [
-      { label: "牛肉", value: "牛肉", icon: "🐮" },
-      { label: "鸡肉", value: "鸡肉", icon: "🐔" },
-      { label: "猪肉", value: "猪肉", icon: "🐷" },
-      { label: "鱼虾", value: "鱼虾", icon: "🦐" },
-      { label: "素食", value: "素食", icon: "🥬" }
+      { label: "牛肉", value: "牛肉" },
+      { label: "鸡肉", value: "鸡肉" },
+      { label: "猪肉", value: "猪肉" },
+      { label: "鱼虾", value: "鱼虾" },
+      { label: "素食", value: "素食" }
     ]
   },
   {
@@ -40,13 +39,13 @@ var QUESTIONS = [
     name: "主食",
     field: "staple",
     title: "主食想来点啥？",
-    color: "#FFC93C",
+    color: "#B59A5B",
     relaxRank: 3,
     options: [
-      { label: "米饭", value: "米饭", icon: "🍚" },
-      { label: "面", value: "面", icon: "🍜" },
-      { label: "粉", value: "粉", icon: "🍝" },
-      { label: "汉堡披萨", value: "汉堡披萨", icon: "🍔" }
+      { label: "米饭", value: "米饭" },
+      { label: "面", value: "面" },
+      { label: "粉", value: "粉" },
+      { label: "汉堡披萨", value: "汉堡披萨" }
     ]
   },
   {
@@ -54,12 +53,12 @@ var QUESTIONS = [
     name: "口味",
     field: "flavor",
     title: "口味偏好？",
-    color: "#FF4D6D",
+    color: "#8E4D4A",
     relaxRank: 2,
     options: [
-      { label: "辣", value: "辣", icon: "🌶️" },
-      { label: "不辣", value: "不辣", icon: "😌", match: { not: "辣" } },
-      { label: "清淡", value: "清淡", icon: "🍵" }
+      { label: "辣", value: "辣" },
+      { label: "不辣", value: "不辣", match: { not: "辣" } },
+      { label: "清淡", value: "清淡" }
     ]
   },
   {
@@ -67,12 +66,12 @@ var QUESTIONS = [
     name: "预算",
     field: "price",
     title: "这顿预算多少？",
-    color: "#2EC4B6",
+    color: "#6B7F72",
     relaxRank: 4,
     options: [
-      { label: "20 元以内", short: "≤20元", value: "0-20", icon: "🪙", match: { min: 0, max: 20 } },
-      { label: "20 到 40 元", short: "20-40", value: "20-40", icon: "💵", match: { min: 20, max: 40 } },
-      { label: "40 元以上", short: "40元+", value: "40+", icon: "💰", match: { min: 40, max: Infinity } }
+      { label: "20 元以内", short: "≤20元", value: "0-20", match: { min: 0, max: 20 } },
+      { label: "20 到 40 元", short: "20-40", value: "20-40", match: { min: 20, max: 40 } },
+      { label: "40 元以上", short: "40元+", value: "40+", match: { min: 40, max: Infinity } }
     ]
   },
   {
@@ -80,12 +79,12 @@ var QUESTIONS = [
     name: "场景",
     field: "scene",
     title: "怎么吃？",
-    color: "#7B61FF",
+    color: "#6A6570",
     relaxRank: 5,
     options: [
-      { label: "一个人", value: "一个人", icon: "🙋" },
-      { label: "聚餐", value: "聚餐", icon: "🎉" },
-      { label: "带走", value: "带走", icon: "🥡" }
+      { label: "一个人", value: "一个人" },
+      { label: "聚餐", value: "聚餐" },
+      { label: "带走", value: "带走" }
     ]
   }
 ];
@@ -94,8 +93,8 @@ var ANY = "__any";
 var OTHER = "__other";
 
 QUESTIONS.forEach(function (q) {
-  q.options.push({ label: "其他", value: OTHER, icon: "❔" });
-  q.options.push({ label: "都可以", value: ANY, icon: "🌈" });
+  q.options.push({ label: "其他", value: OTHER });
+  q.options.push({ label: "都可以", value: ANY });
 });
 
 if (typeof module !== "undefined") {
