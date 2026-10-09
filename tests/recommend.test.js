@@ -26,12 +26,22 @@ test("条件都能满足时，推荐的菜全部命中", () => {
 });
 
 test("匹配不上时按 relaxRank 放宽，并告诉放宽了哪一条", () => {
-  // 清单里没有「牛肉 + 粉」的组合，主食应被放宽
-  const answers = { protein: "牛肉", staple: "粉", price: "0-20" };
+  // 清单里没有「素食 + 汉堡披萨 + 辣 + 20 元以内」，主食或预算应被放宽
+  const answers = { protein: "素食", staple: "汉堡披萨", flavor: "辣", price: "0-20" };
   const r = recommend(foods, QUESTIONS, answers, { random: first });
   assert.ok(r.food);
-  assert.ok(r.relaxed.includes("staple"));
+  assert.ok(r.relaxed.length > 0);
   assert.ok(r.matched.includes("protein"), "主料 relaxRank 最小，应最后被放宽");
+});
+
+test("鱼虾+面+不辣+20到40+一个人能完整命中，不放宽主食", () => {
+  const answers = { protein: "鱼虾", staple: "面", flavor: "不辣", price: "20-40", scene: "一个人" };
+  const r = recommend(foods, QUESTIONS, answers, { random: first });
+  assert.ok(r.food);
+  assert.strictEqual(r.food.protein, "鱼虾");
+  assert.strictEqual(r.food.staple, "面");
+  assert.ok(!r.relaxed.includes("staple"));
+  assert.deepStrictEqual(r.relaxed, []);
 });
 
 test("“不辣”会命中“清淡”的菜，“辣”不会", () => {
