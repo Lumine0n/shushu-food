@@ -3,6 +3,7 @@
  *
  * 每道题的字段：
  *   id        题目编号，也是答案的名字
+ *   name      题目的简称，结果页里“放宽了哪一条”会用到
  *   field     对应 data/foods.json 里的哪个字段
  *   title     题目文字
  *   color     这道题的小球颜色
@@ -10,6 +11,8 @@
  *   options   选项列表。每个选项：
  *     label  显示的文字
  *     value  和 foods.json 里的值比较
+ *     short  （可选）写在小球上的短文字，不填就用 label
+ *     icon   按钮上的小图标
  *     match  （可选）特殊比较方式：
  *              { not: "辣" }        字段不等于“辣”就算命中
  *              { min: 20, max: 40 } 数字在这个范围内（含 min，不含 max）
@@ -19,6 +22,7 @@
 var QUESTIONS = [
   {
     id: "protein",
+    name: "主料",
     field: "protein",
     title: "今天想吃点什么肉？",
     color: "#FF8A3D",
@@ -33,6 +37,7 @@ var QUESTIONS = [
   },
   {
     id: "staple",
+    name: "主食",
     field: "staple",
     title: "主食想来点啥？",
     color: "#FFC93C",
@@ -46,6 +51,7 @@ var QUESTIONS = [
   },
   {
     id: "flavor",
+    name: "口味",
     field: "flavor",
     title: "口味偏好？",
     color: "#FF4D6D",
@@ -58,18 +64,20 @@ var QUESTIONS = [
   },
   {
     id: "price",
+    name: "预算",
     field: "price",
     title: "这顿预算多少？",
     color: "#2EC4B6",
     relaxRank: 4,
     options: [
-      { label: "20 元以内", value: "0-20", icon: "🪙", match: { min: 0, max: 20 } },
-      { label: "20 到 40 元", value: "20-40", icon: "💵", match: { min: 20, max: 40 } },
-      { label: "40 元以上", value: "40+", icon: "💰", match: { min: 40, max: Infinity } }
+      { label: "20 元以内", short: "≤20元", value: "0-20", icon: "🪙", match: { min: 0, max: 20 } },
+      { label: "20 到 40 元", short: "20-40", value: "20-40", icon: "💵", match: { min: 20, max: 40 } },
+      { label: "40 元以上", short: "40元+", value: "40+", icon: "💰", match: { min: 40, max: Infinity } }
     ]
   },
   {
     id: "scene",
+    name: "场景",
     field: "scene",
     title: "怎么吃？",
     color: "#7B61FF",
