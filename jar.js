@@ -330,12 +330,14 @@
         }
         var duration = light ? 650 : 1500;
         var start = performance.now();
+        var lid = M.Bodies.rectangle(W / 2, jar.y - 28, jar.w + 120, 60, { isStatic: true, restitution: 0.5 });
+        M.Composite.add(world, lid);
         var kick = setInterval(function () {
           balls.forEach(function (b) {
             if (b.leaving) return;
             M.Body.setVelocity(b.body, {
-              x: (Math.random() - 0.5) * (light ? 8 : 16),
-              y: -(Math.random() * (light ? 6 : 12) + (light ? 3 : 6))
+              x: (Math.random() - 0.5) * (light ? 8 : 14),
+              y: -(Math.random() * (light ? 5 : 9) + (light ? 3 : 5))
             });
             M.Body.setAngularVelocity(b.body, (Math.random() - 0.5) * 0.6);
           });
@@ -345,7 +347,10 @@
             var t = (performance.now() - start) / duration;
             shaking = t < 1 ? Math.sin(Math.PI * t) * (light ? 0.6 : 1) : 0;
             if (t < 1) requestAnimationFrame(tick);
-            else { clearInterval(kick); setTimeout(resolve, 250); }
+            else {
+              clearInterval(kick);
+              setTimeout(function () { M.Composite.remove(world, lid); resolve(); }, 250);
+            }
           })();
         });
       }
