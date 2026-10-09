@@ -159,7 +159,66 @@ node --test
 
 ---
 
-## 七、从狐友“上海大学圈”收集美食
+## 七、部署到腾讯云
+
+这是纯静态网站：把仓库根目录里的 `index.html`、`style.css`、几个 `.js` 和 `data/foods.json` 放到服务器上，用 nginx 当网页服务器即可。不需要 Node 构建，也不需要数据库。
+
+下面用占位符 `YOUR_DOMAIN` 代表你自己的域名。还没有域名和服务器登录信息时，先照着准备，拿到后再替换。
+
+### 1. 把代码放到服务器
+
+用 SSH 登录云服务器后：
+
+```bash
+sudo mkdir -p /var/www
+sudo git clone https://github.com/Lumine0n/shushu-food.git /var/www/shushu-food
+cd /var/www/shushu-food
+sudo git checkout main
+```
+
+以后更新网站，进这个目录再执行一次 `sudo git pull`。
+
+### 2. 安装 nginx 和证书工具
+
+以常见的 Ubuntu 为例：
+
+```bash
+sudo apt update
+sudo apt install -y nginx certbot python3-certbot-nginx
+```
+
+把示例配置拷过去，并把里面的 `YOUR_DOMAIN` 换成真实域名：
+
+```bash
+sudo cp /var/www/shushu-food/deploy/nginx.conf.example /etc/nginx/sites-available/shushu-food
+sudo nano /etc/nginx/sites-available/shushu-food
+sudo ln -s /etc/nginx/sites-available/shushu-food /etc/nginx/sites-enabled/
+sudo nginx -t
+sudo systemctl reload nginx
+```
+
+完整示例见 [deploy/nginx.conf.example](deploy/nginx.conf.example)。它会：
+
+- 用仓库根目录当网站根目录
+- 把 HTTP 跳到 HTTPS
+- 开启 gzip
+- 给 `.js` / `.css` / `.json` 缓存 7 天
+
+### 3. 域名解析和 HTTPS
+
+1. 在域名服务商那里，把 `YOUR_DOMAIN` 的 A 记录指到这台腾讯云服务器的公网 IP。
+2. 安全组放行 80 和 443 端口。
+3. 申请免费证书（Let’s Encrypt）：
+
+```bash
+sudo certbot --nginx -d YOUR_DOMAIN
+```
+
+按提示填邮箱、同意条款。成功后浏览器打开 `https://YOUR_DOMAIN` 就能用。证书大约每 90 天到期，certbot 一般会自动续期。
+
+---
+
+## 八、从狐友“上海大学圈”收集美食
 
 `scraper/` 里已经有一套抓取和人工审核工具：
 
@@ -204,7 +263,7 @@ python -m unittest discover -s scraper/tests -v
 
 ---
 
-## 八、找回旧版
+## 九、找回旧版
 
 旧版代码存档在 tag `v0-nextjs-archive`：
 
