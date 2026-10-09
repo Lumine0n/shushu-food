@@ -1,9 +1,0 @@
-{
-  "pages": ["pages/index/index", "pages/login/login"],
-  "window": {
-    "navigationBarTitleText": "鼠鼠吃饭",
-    "navigationBarBackgroundColor": "#f8f4ea",
-    "navigationBarTextStyle": "black",
-    "backgroundColor": "#f8f4ea"
-  }
-}
