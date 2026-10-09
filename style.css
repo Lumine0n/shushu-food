@@ -16,6 +16,7 @@
 }
 
 * { box-sizing: border-box; }
+[hidden] { display: none !important; }
 
 html, body { margin: 0; height: 100%; }
 
@@ -88,6 +89,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
   box-shadow: var(--shadow);
   padding: 18px 18px 14px;
   position: relative;
+  min-height: 300px;
 }
 .card::before {
   content: ""; position: absolute; left: 22px; right: 22px; top: -3px; height: 8px;
@@ -144,8 +146,8 @@ button { font: inherit; color: inherit; cursor: pointer; }
 @keyframes breathe { 50% { transform: scale(1.04) rotate(-1deg); } }
 
 /* 罐子 */
-.jar-zone { flex: 1; display: flex; flex-direction: column; min-height: 260px; }
-.jar-wrap { position: relative; flex: 1; min-height: 240px; }
+.jar-zone { display: flex; flex-direction: column; margin-top: auto; }
+.jar-wrap { position: relative; height: clamp(230px, 38dvh, 380px); }
 .jar-wrap canvas { position: absolute; inset: 0; touch-action: manipulation; }
 .jar-wrap.shaking { animation: jiggle .18s linear infinite; }
 @keyframes jiggle {

@@ -207,6 +207,7 @@
       ctx.ellipse(-r * 0.38, -r * 0.45, r * 0.22, r * 0.13, -0.6, 0, Math.PI * 2);
       ctx.fill();
 
+      ctx.rotate(-b.body.angle);
       var lines = splitLabel(b.label);
       var longest = Math.max.apply(null, lines.map(function (l) { return Array.from(l).length; }));
       var size = Math.min(r * 0.62, (r * 1.55) / Math.max(longest, 1.6));
@@ -259,10 +260,14 @@
     });
 
     var resizeTimer;
-    root.addEventListener("resize", function () {
+    function relayout() {
+      var rect = canvas.parentElement.getBoundingClientRect();
+      if (Math.abs(rect.width - W) < 1 && Math.abs(rect.height - H) < 1) return;
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(layout, 120);
-    });
+    }
+    if (root.ResizeObserver) new ResizeObserver(relayout).observe(canvas.parentElement);
+    else root.addEventListener("resize", relayout);
 
     layout();
     requestAnimationFrame(frame);
