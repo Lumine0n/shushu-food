@@ -13,4 +13,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - run: node --test
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: 测试网页推荐逻辑
+        run: node --test
+      - name: 测试狐友抓取与审核逻辑
+        run: python -m unittest discover -s scraper/tests -v

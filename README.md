@@ -159,13 +159,48 @@ node --test
 
 ---
 
-## 七、从狐友“上海大学圈”收集美食（进行中）
+## 七、从狐友“上海大学圈”收集美食
 
-抓取脚本在单独的分支里开发，完成后会放在 `scraper/` 文件夹：用你自己的狐友登录 Cookie 抓圈子里的美食帖 → 自动整理成“待审核清单” → 你在命令行里逐条确认 → 通过的才进 `data/foods.json`。
+`scraper/` 里已经有一套抓取和人工审核工具：
 
-使用方法会写在 `scraper/` 里的说明中。清单建设的整体思路见 [docs/food-list-guide.md](docs/food-list-guide.md)。
+```text
+狐友公开帖子 → data/candidates.json（待审核）→ data/foods.json（正式清单）→ 网页推荐
+```
 
-> 安全提醒：Cookie 相当于你的登录凭证，**千万不要提交到仓库**。`.env` 文件已经在 `.gitignore` 里了。
+第一次使用，安装 Python 依赖和 Chromium：
+
+```bash
+pip install -r scraper/requirements.txt
+python -m playwright install chromium
+```
+
+然后分两步运行：
+
+```bash
+# 1. 抓公开帖子，识别出的候选先放进待审核清单
+python scraper/fetch_sohu.py
+
+# 2. 一条一条人工确认；只有通过的才进入正式清单
+python scraper/review.py
+```
+
+审核时输入 `a` 直接通过、`e` 修改后通过、`d` 丢弃、`s` 跳过、`q` 保存退出。脚本会检查主料、主食、口味、价格等字段是否符合网页的格式；自动识别不全时请按 `e` 补齐，不会把坏数据写进网页清单。
+
+实测公开帖子列表不登录也能抓。只有想加 `--comments` 抓评论时，才需要自己的狐友 Cookie。Cookie 放在环境变量 `SOHU_COOKIE`，或者仓库根目录的 `.env` 中：
+
+```text
+SOHU_COOKIE=从浏览器复制的 Cookie
+```
+
+> 安全提醒：Cookie 相当于你的登录凭证，**千万不要提交到仓库或发给别人**。`.env` 已经在 `.gitignore` 里，账号密码不经过脚本。
+
+完整参数、抓取频率、隐私说明和排错方法见 [scraper/README.md](scraper/README.md)。清单怎么建设见 [docs/food-list-guide.md](docs/food-list-guide.md)。
+
+抓取工具的离线测试：
+
+```bash
+python -m unittest discover -s scraper/tests -v
+```
 
 ---
 
