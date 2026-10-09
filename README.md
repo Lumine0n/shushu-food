@@ -53,7 +53,9 @@ tests/             自动测试，检查推荐算法和清单格式对不对
 docs/food-list-guide.md   怎样把清单越做越好
 ```
 
-小球的物理效果用的是 [Matter.js](https://brm.io/matter-js/)，可爱字体是“站酷快乐体”，都通过网络（CDN）直接引入。如果网络打不开它们，网页仍然能用：字体会换成系统字体，罐子会变成简单的彩色标签。
+小球的物理效果用的是 [Matter.js](https://brm.io/matter-js/)，通过网络（CDN）引入；字体用系统字体。如果 Matter.js 打不开，罐子会变成简单的彩色标签。
+
+前端交互规范来自 [emilkowalski/skills](https://github.com/emilkowalski/skills)，已装在 `.cursor/skills/`（Cursor 用）和 `.agents/skills/`（`npx skills add` 的默认路径）。
 
 ---
 

@@ -299,7 +299,7 @@
     $backdrop.classList.remove("open");
     setTimeout(function () {
       if (!$sheet.classList.contains("open")) { $sheet.hidden = true; $backdrop.hidden = true; }
-    }, 300);
+    }, 420);
   }
   $backdrop.onclick = closeSheet;
   document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeSheet(); });
