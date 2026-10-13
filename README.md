@@ -4,6 +4,8 @@
 
 完整项目交接书：[`docs/PROJECT-HANDOFF.md`](docs/PROJECT-HANDOFF.md)
 
+双站部署（主域名简洁版 + `app.shushufood.site` 旧版 Next.js）：[`docs/DUAL-SITE.md`](docs/DUAL-SITE.md)
+
 ## 本地运行
 
 ```bash
